@@ -1,0 +1,6130 @@
+\input texinfo
+
+@c distributions.texi --- Reference manual
+
+@c Copyright (C) 2019-2022 Steven Nunez
+
+@c This file is part of DISTRIBUTIONS.
+
+@c This program is distributed under the terms of the Microsoft Public
+@c License.
+
+
+@c Commentary:
+
+@c Generated automatically by Declt version 4.0 beta 2 "William Riker"
+@c on Mon Aug 29 13:58:09 2022 GMT+8.
+
+
+@c ====================================================================
+@c Header
+@c ====================================================================
+@c %**start of header
+@setfilename distributions.info
+@settitle The DISTRIBUTIONS Reference Manual
+@afourpaper
+@documentencoding UTF-8
+@c %**end of header
+
+
+
+@c ====================================================================
+@c Format Specific Tweaks
+@c ====================================================================
+@tex
+%% Declt uses several Unicode characters to "reveal" blanks. This
+%% works fine in HTML or Info output, but TeX will have problems with
+%% these. The code below translates those characters to something that
+%% TeX can handle.
+
+%% U+23B5 (Bottom Square Bracket), used to reveal white spaces, is
+%% translated to its Computer Modern teletype version.
+\DeclareUnicodeCharacter{23B5}{{\tt\char'040}}
+
+%% U+21B5 (Downwards Arrow With Corner Leftwards), used to reveal
+%% carriage returns, is translated to \hookleftarrow in math mode.
+\DeclareUnicodeCharacter{21B5}{\ensuremath\hookleftarrow}
+
+%% U+21E5 (Rightwards Arrow To Bar), used to reveal tabs, is
+%% translated to something that looks similar, based on a rightarrow
+%% and a vertical bar from the math extension font.
+\DeclareUnicodeCharacter{21E5}{%
+  \ensuremath{\rightarrow\kern-.5em\mathchar\"130C}}
+
+
+%% Declt uses several Unicode characters to replace "fragile" ones in
+%% anchor names and references. These characters are chosen to resemble
+%% the original ones, without interfering with Info syntax. In TeX
+%% however, we can switch them back to the original versions, because
+%% cross-references are done differently. In theory, I think we could do
+%% something similar for HTML output (again, only the Info syntax poses
+%% problems), but I don't know how to do something similar to what's
+%% below.
+
+%% U+2024 (One Dot Leader) replaces periods.
+\DeclareUnicodeCharacter{2024}{.}
+
+%% U+2236 (Ratio) replaces colons.
+\DeclareUnicodeCharacter{2236}{:}
+
+%% U+2768 (Medium Left Parenthesis Ornament) replaces left parenthesis.
+\DeclareUnicodeCharacter{2768}{(}
+
+%% U+2769 (Medium Right Parenthesis Ornament) replaces right parenthesis.
+\DeclareUnicodeCharacter{2769}{)}
+
+%% U+214B (Turned Ampersand) replaces ampersands.
+\DeclareUnicodeCharacter{214B}{&}
+
+%% U+2216 (Set Minus) replaces backslashes.
+\DeclareUnicodeCharacter{2216}{\char"5C}
+
+%% The following ones are already defined in texinfo.tex so we have nothing
+%% more to do:
+%% U+201A (Single Low-9 Quotation Mark) replaces commas.
+%% U+2205 (Empty Set) replaces empty symbol names.
+
+@end tex
+
+
+
+@c ====================================================================
+@c Settings
+@c ====================================================================
+@setchapternewpage odd
+@documentdescription
+The DISTRIBUTIONS Reference Manual, version 1.0.0.
+@end documentdescription
+
+
+
+@c ====================================================================
+@c New Commands
+@c ====================================================================
+
+@c ---------------
+@c Indexing macros
+@c ---------------
+
+@c Packages
+@macro packageindex{name}
+@tpindex \name\
+@tpindex @r{Package, }\name\
+@end macro
+
+@c Systems
+@macro systemindex{name}
+@tpindex \name\
+@tpindex @r{System, }\name\
+@end macro
+
+@c Modules
+@macro moduleindex{name}
+@tpindex @t{\name\}
+@tpindex Module, @t{\name\}
+@end macro
+
+@c Files
+@macro fileindex{name}
+@tpindex @t{\name\}
+@tpindex File, @t{\name\}
+@end macro
+
+@c The following macros are meant to be used within @defxxx environments.
+@c Texinfo performs half the indexing job and we do the other half.
+
+@c Constants
+@macro constantsubindex{name}
+@vindex @r{Constant, }\name\
+@end macro
+
+@c Special variables
+@macro specialsubindex{name}
+@vindex @r{Special Variable, }\name\
+@end macro
+
+@c Symbol macros
+@macro symbolmacrosubindex{name}
+@vindex @r{Symbol Macro, }\name\
+@end macro
+
+@c Slots
+@macro slotsubindex{name}
+@vindex @r{Slot, }\name\
+@end macro
+
+@c Macros
+@macro macrosubindex{name}
+@findex @r{Macro, }\name\
+@end macro
+
+@c Compiler Macros
+@macro compilermacrosubindex{name}
+@findex @r{Compiler Macro, }\name\
+@end macro
+
+@c Functions
+@macro functionsubindex{name}
+@findex @r{Function, }\name\
+@end macro
+
+@c Methods
+@macro methodsubindex{name}
+@findex @r{Method, }\name\
+@end macro
+
+@c Generic Functions
+@macro genericsubindex{name}
+@findex @r{Generic Function, }\name\
+@end macro
+
+@c Setf Expanders
+@macro expandersubindex{name}
+@findex @r{Setf Expander, }\name\
+@end macro
+
+@c Method Combinations
+@macro combinationsubindex{name}
+@findex @r{Method Combination, }\name\
+@end macro
+
+@c Conditions
+@macro conditionsubindex{name}
+@tpindex @r{Condition, }\name\
+@end macro
+
+@c Structures
+@macro structuresubindex{name}
+@tpindex @r{Structure, }\name\
+@end macro
+
+@c Types
+@macro typesubindex{name}
+@tpindex @r{Type, }\name\
+@end macro
+
+@c Classes
+@macro classsubindex{name}
+@tpindex @r{Class, }\name\
+@end macro
+
+
+
+@c ====================================================================
+@c Info Category and Directory
+@c ====================================================================
+@dircategory Common Lisp
+@direntry
+* DISTRIBUTIONS Reference Manual: (distributions). The DISTRIBUTIONS Reference Manual.
+@end direntry
+
+
+
+@c ====================================================================
+@c Copying
+@c ====================================================================
+@copying
+@quotation
+Copyright @copyright{} 2019-2022 Steven Nunez
+
+Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries a copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled ``Copying'' is included exactly as in the original.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be translated as well.
+@end quotation
+@end copying
+
+
+
+@c ====================================================================
+@c Title Page
+@c ====================================================================
+@titlepage
+@title The DISTRIBUTIONS Reference Manual
+@subtitle Statistical distributions and related functions, version 1.0.0
+
+@author Steven Nunez <@email{steve@atchar{}symbolics.tech}>
+
+@page
+@quotation
+This manual was generated automatically by Declt 4.0b2.
+@end quotation
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+
+
+@c ====================================================================
+@c Table of Contents
+@c ====================================================================
+@contents
+
+
+
+@c ====================================================================
+@c Top
+@c ====================================================================
+@ifnottex
+@node Top, Copying, (dir), (dir)
+@top The DISTRIBUTIONS Reference Manual
+This is the DISTRIBUTIONS Reference Manual, version 1.0.0,
+generated automatically by Declt version 4.0b2.
+
+@menu
+* Copying:: The Microsoft Public License
+* Systems:: The systems documentation
+* Files:: The files documentation
+* Packages:: The packages documentation
+* Definitions:: The symbols documentation
+* Indexes:: Concepts, functions, variables and data types
+@end menu
+
+@insertcopying
+@end ifnottex
+
+
+
+@c ====================================================================
+@c Copying
+@c ====================================================================
+@node Copying, Systems, Top, Top
+@unnumbered Copying
+@quotation
+This program is distributed under the terms of the Microsoft Public
+License.
+@end quotation
+
+
+
+@c ====================================================================
+@c Systems
+@c ====================================================================
+@node Systems, Files, Copying, Top
+@chapter Systems
+The main system appears first, followed by any subsystem dependency.
+
+@menu
+* The distributions system::
+@end menu
+
+
+@c ------------------------
+@c The distributions system
+@c ------------------------
+@node The distributions system, , Systems, Systems
+@section @t{distributions}
+@anchor{❨1❩}@c
+@systemindex{distributions}@c
+Random numbers and distributions
+@table @strong
+@item Long Name
+Statistical distributions and related functions
+@item Author
+Steven Nunez <@email{steve@atchar{}symbolics.tech}>
+@item Home Page
+@uref{https://lisp-stat.dev/docs/manuals/distributions/}
+@item Source Control
+@t{(GIT https://github.com/Lisp-Stat/distributions.git)}
+@item Bug Tracker
+@uref{https://github.com/Lisp-Stat/distributions/issues}
+@item License
+MS-PL
+@item Long Description
+The Distributions package provides a collection of probabilistic distributions and related functions including:
+
+- Sampling from distributions@*
+- Moments (e.g mean@comma{} variance@comma{} skewness@comma{} and kurtosis)@comma{} entropy@comma{} and other properties@*
+- Probability density/mass functions (pdf) and their logarithm (logpdf)@*
+- Moment-generating functions and characteristic functions@*
+- Maximum likelihood estimation@*
+- Distribution composition and derived distributions
+@item Version
+1.0.0
+@item Dependencies
+@itemize @bullet
+@item
+@t{alexandria}@: (system).
+@item
+@t{anaphora}@: (system).
+@item
+@t{array-operations}@: (system).
+@item
+@t{cephes}@: (system).
+@item
+@t{num-utils}@: (system).
+@item
+@t{special-functions}@: (system).
+@item
+@t{let-plus}@: (system).
+@item
+@t{float-features}@: (system).
+@end itemize
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Child Components
+@itemize @bullet
+@item
+@ref{❨3❩, , @t{packages.lisp}}@: (file).
+@item
+@ref{❨4❩, , @t{internals.lisp}}@: (file).
+@item
+@ref{❨5❩, , @t{generator.lisp}}@: (file).
+@item
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}@: (file).
+@item
+@ref{❨7❩, , @t{defs.lisp}}@: (file).
+@item
+@ref{❨8❩, , @t{generics.lisp}}@: (file).
+@item
+@ref{❨9❩, , @t{discrete.lisp}}@: (file).
+@item
+@ref{❨10❩, , @t{uniform.lisp}}@: (file).
+@item
+@ref{❨11❩, , @t{exponential.lisp}}@: (file).
+@item
+@ref{❨12❩, , @t{normal.lisp}}@: (file).
+@item
+@ref{❨13❩, , @t{log-normal.lisp}}@: (file).
+@item
+@ref{❨14❩, , @t{truncated-normal.lisp}}@: (file).
+@item
+@ref{❨15❩, , @t{t-distribution.lisp}}@: (file).
+@item
+@ref{❨16❩, , @t{gamma.lisp}}@: (file).
+@item
+@ref{❨17❩, , @t{chi-square.lisp}}@: (file).
+@item
+@ref{❨18❩, , @t{beta.lisp}}@: (file).
+@item
+@ref{❨19❩, , @t{rayleigh.lisp}}@: (file).
+@item
+@ref{❨20❩, , @t{bernoulli.lisp}}@: (file).
+@item
+@ref{❨21❩, , @t{binomial.lisp}}@: (file).
+@item
+@ref{❨22❩, , @t{geometric.lisp}}@: (file).
+@item
+@ref{❨23❩, , @t{poisson.lisp}}@: (file).
+@end itemize
+@end table
+
+
+
+@c ====================================================================
+@c Files
+@c ====================================================================
+@node Files, Packages, Systems, Top
+@chapter Files
+Files are sorted by type and then listed depth-first from the systems
+components trees.
+
+@menu
+* Lisp files::
+@end menu
+
+
+@c ----------
+@c Lisp files
+@c ----------
+@node Lisp files, , Files, Files
+@section Lisp
+@menu
+* The distributions/distributions․asd file::
+* The distributions/packages․lisp file::
+* The distributions/internals․lisp file::
+* The distributions/generator․lisp file::
+* The distributions/simple-multiplicative-congruential-generators․lisp file::
+* The distributions/defs․lisp file::
+* The distributions/generics․lisp file::
+* The distributions/discrete․lisp file::
+* The distributions/uniform․lisp file::
+* The distributions/exponential․lisp file::
+* The distributions/normal․lisp file::
+* The distributions/log-normal․lisp file::
+* The distributions/truncated-normal․lisp file::
+* The distributions/t-distribution․lisp file::
+* The distributions/gamma․lisp file::
+* The distributions/chi-square․lisp file::
+* The distributions/beta․lisp file::
+* The distributions/rayleigh․lisp file::
+* The distributions/bernoulli․lisp file::
+* The distributions/binomial․lisp file::
+* The distributions/geometric․lisp file::
+* The distributions/poisson․lisp file::
+@end menu
+
+@node The distributions/distributions․asd file, The distributions/packages․lisp file, Lisp files, Lisp files
+@subsection @t{distributions/distributions.asd}
+@anchor{❨2❩}@c
+@fileindex{distributions.asd}@c
+@table @strong
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item ASDF Systems
+@ref{❨1❩, , @t{distributions}}.
+@end table
+
+@node The distributions/packages․lisp file, The distributions/internals․lisp file, The distributions/distributions․asd file, Lisp files
+@subsection @t{distributions/packages.lisp}
+@anchor{❨3❩}@c
+@fileindex{packages.lisp}@c
+@table @strong
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Packages
+@itemize @bullet
+@item
+@ref{❨24❩, , @t{distributions.internals}}.
+@item
+@ref{❨25❩, , @t{distributions}}.
+@end itemize
+@end table
+
+@node The distributions/internals․lisp file, The distributions/generator․lisp file, The distributions/packages․lisp file, Lisp files
+@subsection @t{distributions/internals.lisp}
+@anchor{❨4❩}@c
+@fileindex{internals.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨3❩, , @t{packages.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨29❩, , @t{as-float}}@: (function).
+@item
+@ref{❨30❩, , @t{as-float-probabilities}}@: (function).
+@item
+@ref{❨32❩, , @t{as-float-vector}}@: (function).
+@item
+@ref{❨26❩, , @t{float-vector}}@: (type).
+@item
+@ref{❨28❩, , @t{internal-float}}@: (type).
+@item
+@ref{❨31❩, , @t{maybe-ignore-constant}}@: (macro).
+@item
+@ref{❨33❩, , @t{try}}@: (macro).
+@item
+@ref{❨27❩, , @t{with-floats}}@: (macro).
+@end itemize
+@end table
+
+@node The distributions/generator․lisp file, The distributions/simple-multiplicative-congruential-generators․lisp file, The distributions/internals․lisp file, Lisp files
+@subsection @t{distributions/generator.lisp}
+@anchor{❨5❩}@c
+@fileindex{generator.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨4❩, , @t{internals.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨213❩, , @t{generator}}@: (class).
+@item
+@ref{❨425❩, , @t{initialize-instance}}@: (method).
+@item
+@ref{❨210❩, , @t{make-generator}}@: (function).
+@item
+@ref{❨34❩, , @t{next}}@: (function).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨253❩, , @t{%next-double-float}}@: (function).
+@item
+@ref{❨402❩, , @t{%next-integer}}@: (function).
+@item
+@ref{❨356❩, , @t{%next-single-float}}@: (function).
+@item
+@ref{❨391❩, , @t{*default-generator-type*}}@: (special variable).
+@item
+@ref{❨275❩, , @t{chunk-length}}@: (reader method).
+@item
+@ref{❨321❩, , @t{copy-state}}@: (generic function).
+@item
+@ref{❨272❩, , @t{default-seed}}@: (reader method).
+@item
+@ref{❨309❩, , @t{generate-seed}}@: (function).
+@item
+@ref{❨244❩, , @t{generate-state}}@: (generic function).
+@item
+@ref{❨235❩, , @t{state}}@: (reader method).
+@item
+@ref{❨237❩, , @t{(setf state)}}@: (writer method).
+@end itemize
+@end table
+
+@node The distributions/simple-multiplicative-congruential-generators․lisp file, The distributions/defs․lisp file, The distributions/generator․lisp file, Lisp files
+@subsection @t{distributions/simple-multiplicative-congruential-generators.lisp}
+@anchor{❨6❩}@c
+@fileindex{simple-multiplicative-congruential-generators.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨5❩, , @t{generator.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨126❩, , @t{borosh13}}@: (class).
+@item
+@ref{❨426❩, , @t{initialize-instance}}@: (method).
+@item
+@ref{❨201❩, , @t{randu}}@: (class).
+@item
+@ref{❨136❩, , @t{transputer}}@: (class).
+@item
+@ref{❨221❩, , @t{waterman14}}@: (class).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨377❩, , @t{a}}@: (reader method).
+@item
+@ref{❨308❩, , @t{clone}}@: (method).
+@item
+@ref{❨245❩, , @t{generate-state}}@: (method).
+@item
+@ref{❨255❩, , @t{m}}@: (reader method).
+@item
+@ref{❨385❩, , @t{next-chunk}}@: (method).
+@item
+@ref{❨369❩, , @t{next-real}}@: (method).
+@item
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}@: (class).
+@end itemize
+@end table
+
+@node The distributions/defs․lisp file, The distributions/generics․lisp file, The distributions/simple-multiplicative-congruential-generators․lisp file, Lisp files
+@subsection @t{distributions/defs.lisp}
+@anchor{❨7❩}@c
+@fileindex{defs.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨61❩, , @t{cdf}}@: (generic function).
+@item
+@ref{❨142❩, , @t{draw}}@: (generic function).
+@item
+@ref{❨211❩, , @t{generator}}@: (generic function).
+@item
+@ref{❨110❩, , @t{log-pdf}}@: (generic function).
+@item
+@ref{❨163❩, , @t{mean}}@: (generic function).
+@item
+@ref{❨180❩, , @t{pdf}}@: (function).
+@item
+@ref{❨72❩, , @t{variance}}@: (generic function).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨326❩, , @t{check-probability}}@: (function).
+@item
+@ref{❨359❩, , @t{define-rv}}@: (macro).
+@end itemize
+@end table
+
+@node The distributions/generics․lisp file, The distributions/discrete․lisp file, The distributions/defs․lisp file, Lisp files
+@subsection @t{distributions/generics.lisp}
+@anchor{❨8❩}@c
+@fileindex{generics.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨7❩, , @t{defs.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨43❩, , @t{nu}}@: (generic function).
+@item
+@ref{❨219❩, , @t{standard-deviation}}@: (generic function).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨340❩, , @t{copy-r-univariate}}@: (function).
+@item
+@ref{❨401❩, , @t{make-r-univariate}}@: (function).
+@item
+@ref{❨374❩, , @t{r-univariate}}@: (structure).
+@item
+@ref{❨342❩, , @t{r-univariate-p}}@: (function).
+@item
+@ref{❨313❩, , @t{s^2}}@: (generic function).
+@end itemize
+@end table
+
+@node The distributions/discrete․lisp file, The distributions/uniform․lisp file, The distributions/generics․lisp file, Lisp files
+@subsection @t{distributions/discrete.lisp}
+@anchor{❨9❩}@c
+@fileindex{discrete.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨8❩, , @t{generics.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨70❩, , @t{cdf}}@: (method).
+@item
+@ref{❨135❩, , @t{distinct-random-integers}}@: (function).
+@item
+@ref{❨91❩, , @t{distinct-random-integers-dense}}@: (function).
+@item
+@ref{❨156❩, , @t{draw}}@: (method).
+@item
+@ref{❨118❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨177❩, , @t{mean}}@: (method).
+@item
+@ref{❨159❩, , @t{probabilities}}@: (method).
+@item
+@ref{❨35❩, , @t{r-discrete}}@: (function).
+@item
+@ref{❨36❩, , @t{r-discrete}}@: (structure).
+@item
+@ref{❨86❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨229❩, , @t{copy-r-discrete}}@: (function).
+@item
+@ref{❨390❩, , @t{make-r-discrete}}@: (function).
+@item
+@ref{❨266❩, , @t{r-discrete-alias}}@: (reader).
+@item
+@ref{❨267❩, , @t{(setf r-discrete-alias)}}@: (writer).
+@item
+@ref{❨251❩, , @t{r-discrete-n-float}}@: (reader).
+@item
+@ref{❨252❩, , @t{(setf r-discrete-n-float)}}@: (writer).
+@item
+@ref{❨349❩, , @t{r-discrete-p}}@: (function).
+@item
+@ref{❨239❩, , @t{r-discrete-prob}}@: (reader).
+@item
+@ref{❨240❩, , @t{(setf r-discrete-prob)}}@: (writer).
+@item
+@ref{❨276❩, , @t{r-discrete-probabilities}}@: (reader).
+@item
+@ref{❨277❩, , @t{(setf r-discrete-probabilities)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/uniform․lisp file, The distributions/exponential․lisp file, The distributions/discrete․lisp file, Lisp files
+@subsection @t{distributions/uniform.lisp}
+@anchor{❨10❩}@c
+@fileindex{uniform.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨9❩, , @t{discrete.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨69❩, , @t{cdf}}@: (method).
+@item
+@ref{❨155❩, , @t{draw}}@: (method).
+@item
+@ref{❨71❩, , @t{draw-uniform}}@: (function).
+@item
+@ref{❨120❩, , @t{left}}@: (method).
+@item
+@ref{❨117❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨176❩, , @t{mean}}@: (method).
+@item
+@ref{❨196❩, , @t{quantile}}@: (method).
+@item
+@ref{❨101❩, , @t{r-uniform}}@: (function).
+@item
+@ref{❨102❩, , @t{r-uniform}}@: (structure).
+@item
+@ref{❨179❩, , @t{right}}@: (method).
+@item
+@ref{❨85❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨259❩, , @t{copy-r-uniform}}@: (function).
+@item
+@ref{❨286❩, , @t{make-r-uniform}}@: (function).
+@item
+@ref{❨399❩, , @t{r-uniform-left}}@: (reader).
+@item
+@ref{❨400❩, , @t{(setf r-uniform-left)}}@: (writer).
+@item
+@ref{❨315❩, , @t{r-uniform-p}}@: (function).
+@item
+@ref{❨362❩, , @t{r-uniform-right}}@: (reader).
+@item
+@ref{❨363❩, , @t{(setf r-uniform-right)}}@: (writer).
+@item
+@ref{❨289❩, , @t{r-uniform-width}}@: (reader).
+@item
+@ref{❨290❩, , @t{(setf r-uniform-width)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/exponential․lisp file, The distributions/normal․lisp file, The distributions/uniform․lisp file, Lisp files
+@subsection @t{distributions/exponential.lisp}
+@anchor{❨11❩}@c
+@fileindex{exponential.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨10❩, , @t{uniform.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨68❩, , @t{cdf}}@: (method).
+@item
+@ref{❨154❩, , @t{draw}}@: (method).
+@item
+@ref{❨161❩, , @t{draw-exponential}}@: (function).
+@item
+@ref{❨87❩, , @t{draw-standard-exponential}}@: (function).
+@item
+@ref{❨116❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨175❩, , @t{mean}}@: (method).
+@item
+@ref{❨195❩, , @t{quantile}}@: (method).
+@item
+@ref{❨139❩, , @t{r-exponential}}@: (function).
+@item
+@ref{❨140❩, , @t{r-exponential}}@: (structure).
+@item
+@ref{❨42❩, , @t{rate}}@: (method).
+@item
+@ref{❨84❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨238❩, , @t{copy-r-exponential}}@: (function).
+@item
+@ref{❨306❩, , @t{make-r-exponential}}@: (function).
+@item
+@ref{❨375❩, , @t{r-exponential-p}}@: (function).
+@item
+@ref{❨268❩, , @t{r-exponential-rate}}@: (reader).
+@item
+@ref{❨269❩, , @t{(setf r-exponential-rate)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/normal․lisp file, The distributions/log-normal․lisp file, The distributions/exponential․lisp file, Lisp files
+@subsection @t{distributions/normal.lisp}
+@anchor{❨12❩}@c
+@fileindex{normal.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨11❩, , @t{exponential.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨67❩, , @t{cdf}}@: (method).
+@item
+@ref{❨153❩, , @t{draw}}@: (method).
+@item
+@ref{❨162❩, , @t{draw-standard-normal}}@: (function).
+@item
+@ref{❨121❩, , @t{from-standard-normal}}@: (function).
+@item
+@ref{❨115❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨174❩, , @t{mean}}@: (method).
+@item
+@ref{❨194❩, , @t{quantile}}@: (method).
+@item
+@ref{❨206❩, , @t{r-normal}}@: (function).
+@item
+@ref{❨207❩, , @t{r-normal}}@: (structure).
+@item
+@ref{❨51❩, , @t{to-standard-normal}}@: (function).
+@item
+@ref{❨83❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨367❩, , @t{+normal-log-pdf-constant+}}@: (constant).
+@item
+@ref{❨355❩, , @t{cdf-normal%}}@: (function).
+@item
+@ref{❨316❩, , @t{copy-r-normal}}@: (function).
+@item
+@ref{❨392❩, , @t{make-r-normal}}@: (function).
+@item
+@ref{❨304❩, , @t{pdf-normal%}}@: (function).
+@item
+@ref{❨295❩, , @t{quantile-normal%}}@: (function).
+@item
+@ref{❨241❩, , @t{r-normal-mean}}@: (reader).
+@item
+@ref{❨242❩, , @t{(setf r-normal-mean)}}@: (writer).
+@item
+@ref{❨258❩, , @t{r-normal-p}}@: (function).
+@item
+@ref{❨293❩, , @t{r-normal-sd}}@: (reader).
+@item
+@ref{❨294❩, , @t{(setf r-normal-sd)}}@: (writer).
+@item
+@ref{❨312❩, , @t{sd}}@: (method).
+@end itemize
+@end table
+
+@node The distributions/log-normal․lisp file, The distributions/truncated-normal․lisp file, The distributions/normal․lisp file, Lisp files
+@subsection @t{distributions/log-normal.lisp}
+@anchor{❨13❩}@c
+@fileindex{log-normal.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨12❩, , @t{normal.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨66❩, , @t{cdf}}@: (method).
+@item
+@ref{❨152❩, , @t{draw}}@: (method).
+@item
+@ref{❨114❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨173❩, , @t{mean}}@: (method).
+@item
+@ref{❨193❩, , @t{quantile}}@: (method).
+@item
+@ref{❨53❩, , @t{r-log-normal}}@: (function).
+@item
+@ref{❨54❩, , @t{r-log-normal}}@: (structure).
+@item
+@ref{❨82❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨383❩, , @t{copy-r-log-normal}}@: (function).
+@item
+@ref{❨378❩, , @t{make-r-log-normal}}@: (function).
+@item
+@ref{❨357❩, , @t{r-log-normal-log-mean}}@: (reader).
+@item
+@ref{❨358❩, , @t{(setf r-log-normal-log-mean)}}@: (writer).
+@item
+@ref{❨299❩, , @t{r-log-normal-log-sd}}@: (reader).
+@item
+@ref{❨300❩, , @t{(setf r-log-normal-log-sd)}}@: (writer).
+@item
+@ref{❨350❩, , @t{r-log-normal-p}}@: (function).
+@end itemize
+@end table
+
+@node The distributions/truncated-normal․lisp file, The distributions/t-distribution․lisp file, The distributions/log-normal․lisp file, Lisp files
+@subsection @t{distributions/truncated-normal.lisp}
+@anchor{❨14❩}@c
+@fileindex{truncated-normal.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨13❩, , @t{log-normal.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨65❩, , @t{cdf}}@: (method).
+@item
+@ref{❨151❩, , @t{draw}}@: (method).
+@item
+@ref{❨113❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨172❩, , @t{mean}}@: (method).
+@item
+@ref{❨192❩, , @t{quantile}}@: (method).
+@item
+@ref{❨205❩, , @t{r-truncated-normal}}@: (function).
+@item
+@ref{❨81❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨388❩, , @t{copy-left-truncated-normal}}@: (function).
+@item
+@ref{❨398❩, , @t{draw-left-truncated-standard-normal}}@: (function).
+@item
+@ref{❨332❩, , @t{left-truncated-normal}}@: (function).
+@item
+@ref{❨333❩, , @t{left-truncated-normal}}@: (structure).
+@item
+@ref{❨386❩, , @t{left-truncated-normal-alpha}}@: (reader).
+@item
+@ref{❨387❩, , @t{(setf left-truncated-normal-alpha)}}@: (writer).
+@item
+@ref{❨261❩, , @t{left-truncated-normal-left}}@: (reader).
+@item
+@ref{❨262❩, , @t{(setf left-truncated-normal-left)}}@: (writer).
+@item
+@ref{❨248❩, , @t{left-truncated-normal-left-standardized}}@: (reader).
+@item
+@ref{❨249❩, , @t{(setf left-truncated-normal-left-standardized)}}@: (writer).
+@item
+@ref{❨345❩, , @t{left-truncated-normal-m0}}@: (reader).
+@item
+@ref{❨346❩, , @t{(setf left-truncated-normal-m0)}}@: (writer).
+@item
+@ref{❨287❩, , @t{left-truncated-normal-mu}}@: (reader).
+@item
+@ref{❨288❩, , @t{(setf left-truncated-normal-mu)}}@: (writer).
+@item
+@ref{❨379❩, , @t{left-truncated-normal-p}}@: (function).
+@item
+@ref{❨381❩, , @t{left-truncated-normal-sigma}}@: (reader).
+@item
+@ref{❨382❩, , @t{(setf left-truncated-normal-sigma)}}@: (writer).
+@item
+@ref{❨250❩, , @t{make-left-truncated-normal}}@: (function).
+@item
+@ref{❨231❩, , @t{truncated-normal-moments%}}@: (function).
+@item
+@ref{❨243❩, , @t{truncated-normal-optimal-alpha}}@: (function).
+@end itemize
+@end table
+
+@node The distributions/t-distribution․lisp file, The distributions/gamma․lisp file, The distributions/truncated-normal․lisp file, Lisp files
+@subsection @t{distributions/t-distribution.lisp}
+@anchor{❨15❩}@c
+@fileindex{t-distribution.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨14❩, , @t{truncated-normal.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨150❩, , @t{draw}}@: (method).
+@item
+@ref{❨134❩, , @t{draw-standard-t}}@: (function).
+@item
+@ref{❨171❩, , @t{mean}}@: (method).
+@item
+@ref{❨46❩, , @t{nu}}@: (method).
+@item
+@ref{❨96❩, , @t{r-t}}@: (function).
+@item
+@ref{❨97❩, , @t{r-t}}@: (structure).
+@item
+@ref{❨184❩, , @t{scale}}@: (method).
+@item
+@ref{❨224❩, , @t{t-scale-to-variance-coefficient}}@: (function).
+@item
+@ref{❨80❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨280❩, , @t{copy-r-t}}@: (function).
+@item
+@ref{❨273❩, , @t{make-r-t}}@: (function).
+@item
+@ref{❨351❩, , @t{r-t-mean}}@: (reader).
+@item
+@ref{❨352❩, , @t{(setf r-t-mean)}}@: (writer).
+@item
+@ref{❨395❩, , @t{r-t-nu}}@: (reader).
+@item
+@ref{❨396❩, , @t{(setf r-t-nu)}}@: (writer).
+@item
+@ref{❨230❩, , @t{r-t-p}}@: (function).
+@item
+@ref{❨317❩, , @t{r-t-scale}}@: (reader).
+@item
+@ref{❨318❩, , @t{(setf r-t-scale)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/gamma․lisp file, The distributions/chi-square․lisp file, The distributions/t-distribution․lisp file, Lisp files
+@subsection @t{distributions/gamma.lisp}
+@anchor{❨16❩}@c
+@fileindex{gamma.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨15❩, , @t{t-distribution.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨108❩, , @t{alpha}}@: (method).
+@item
+@ref{❨109❩, , @t{alpha}}@: (method).
+@item
+@ref{❨124❩, , @t{beta}}@: (method).
+@item
+@ref{❨125❩, , @t{beta}}@: (method).
+@item
+@ref{❨64❩, , @t{cdf}}@: (method).
+@item
+@ref{❨148❩, , @t{draw}}@: (method).
+@item
+@ref{❨149❩, , @t{draw}}@: (method).
+@item
+@ref{❨111❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨112❩, , @t{log-pdf}}@: (method).
+@item
+@ref{❨169❩, , @t{mean}}@: (method).
+@item
+@ref{❨170❩, , @t{mean}}@: (method).
+@item
+@ref{❨422❩, , @t{num=}}@: (method).
+@item
+@ref{❨191❩, , @t{quantile}}@: (method).
+@item
+@ref{❨57❩, , @t{r-gamma}}@: (function).
+@item
+@ref{❨58❩, , @t{r-gamma}}@: (structure).
+@item
+@ref{❨129❩, , @t{r-inverse-gamma}}@: (function).
+@item
+@ref{❨130❩, , @t{r-inverse-gamma}}@: (structure).
+@item
+@ref{❨78❩, , @t{variance}}@: (method).
+@item
+@ref{❨79❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨324❩, , @t{cdf-gamma%}}@: (function).
+@item
+@ref{❨301❩, , @t{cdf-gamma%+}}@: (function).
+@item
+@ref{❨291❩, , @t{copy-r-gamma}}@: (function).
+@item
+@ref{❨380❩, , @t{copy-r-inverse-gamma}}@: (function).
+@item
+@ref{❨297❩, , @t{draw-standard-gamma1}}@: (function).
+@item
+@ref{❨260❩, , @t{make-r-gamma}}@: (function).
+@item
+@ref{❨389❩, , @t{make-r-inverse-gamma}}@: (function).
+@item
+@ref{❨285❩, , @t{pdf-gamma}}@: (function).
+@item
+@ref{❨364❩, , @t{pdf-gamma%}}@: (function).
+@item
+@ref{❨325❩, , @t{pdf-gamma*}}@: (function).
+@item
+@ref{❨247❩, , @t{pdf-gamma+}}@: (function).
+@item
+@ref{❨302❩, , @t{r-gamma-alpha}}@: (reader).
+@item
+@ref{❨303❩, , @t{(setf r-gamma-alpha)}}@: (writer).
+@item
+@ref{❨347❩, , @t{r-gamma-beta}}@: (reader).
+@item
+@ref{❨348❩, , @t{(setf r-gamma-beta)}}@: (writer).
+@item
+@ref{❨292❩, , @t{r-gamma-p}}@: (function).
+@item
+@ref{❨319❩, , @t{r-inverse-gamma-alpha}}@: (reader).
+@item
+@ref{❨320❩, , @t{(setf r-inverse-gamma-alpha)}}@: (writer).
+@item
+@ref{❨393❩, , @t{r-inverse-gamma-beta}}@: (reader).
+@item
+@ref{❨394❩, , @t{(setf r-inverse-gamma-beta)}}@: (writer).
+@item
+@ref{❨331❩, , @t{r-inverse-gamma-p}}@: (function).
+@item
+@ref{❨310❩, , @t{standard-gamma1-d-c}}@: (function).
+@end itemize
+@end table
+
+@node The distributions/chi-square․lisp file, The distributions/beta․lisp file, The distributions/gamma․lisp file, Lisp files
+@subsection @t{distributions/chi-square.lisp}
+@anchor{❨17❩}@c
+@fileindex{chi-square.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨16❩, , @t{gamma.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨44❩, , @t{nu}}@: (method).
+@item
+@ref{❨45❩, , @t{nu}}@: (method).
+@item
+@ref{❨197❩, , @t{r-chi-square}}@: (function).
+@item
+@ref{❨133❩, , @t{r-inverse-chi-square}}@: (function).
+@end itemize
+@item Internals
+@ref{❨314❩, , @t{s^2}}@: (method).
+@end table
+
+@node The distributions/beta․lisp file, The distributions/rayleigh․lisp file, The distributions/chi-square․lisp file, Lisp files
+@subsection @t{distributions/beta.lisp}
+@anchor{❨18❩}@c
+@fileindex{beta.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨17❩, , @t{chi-square.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨107❩, , @t{alpha}}@: (method).
+@item
+@ref{❨123❩, , @t{beta}}@: (method).
+@item
+@ref{❨147❩, , @t{draw}}@: (method).
+@item
+@ref{❨168❩, , @t{mean}}@: (method).
+@item
+@ref{❨190❩, , @t{quantile}}@: (method).
+@item
+@ref{❨185❩, , @t{r-beta}}@: (function).
+@item
+@ref{❨186❩, , @t{r-beta}}@: (structure).
+@item
+@ref{❨77❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨256❩, , @t{copy-r-beta}}@: (function).
+@item
+@ref{❨270❩, , @t{make-r-beta}}@: (function).
+@item
+@ref{❨353❩, , @t{r-beta-alpha}}@: (reader).
+@item
+@ref{❨354❩, , @t{(setf r-beta-alpha)}}@: (writer).
+@item
+@ref{❨232❩, , @t{r-beta-beta}}@: (reader).
+@item
+@ref{❨233❩, , @t{(setf r-beta-beta)}}@: (writer).
+@item
+@ref{❨265❩, , @t{r-beta-p}}@: (function).
+@end itemize
+@end table
+
+@node The distributions/rayleigh․lisp file, The distributions/bernoulli․lisp file, The distributions/beta․lisp file, Lisp files
+@subsection @t{distributions/rayleigh.lisp}
+@anchor{❨19❩}@c
+@fileindex{rayleigh.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨18❩, , @t{beta.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨63❩, , @t{cdf}}@: (method).
+@item
+@ref{❨146❩, , @t{draw}}@: (method).
+@item
+@ref{❨160❩, , @t{draw-rayleigh}}@: (function).
+@item
+@ref{❨167❩, , @t{mean}}@: (method).
+@item
+@ref{❨198❩, , @t{r-rayleigh}}@: (function).
+@item
+@ref{❨199❩, , @t{r-rayleigh}}@: (structure).
+@item
+@ref{❨183❩, , @t{scale}}@: (method).
+@item
+@ref{❨76❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨344❩, , @t{copy-r-rayleigh}}@: (function).
+@item
+@ref{❨278❩, , @t{make-r-rayleigh}}@: (function).
+@item
+@ref{❨403❩, , @t{r-rayleigh-p}}@: (function).
+@item
+@ref{❨365❩, , @t{r-rayleigh-scale}}@: (reader).
+@item
+@ref{❨366❩, , @t{(setf r-rayleigh-scale)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/bernoulli․lisp file, The distributions/binomial․lisp file, The distributions/rayleigh․lisp file, Lisp files
+@subsection @t{distributions/bernoulli.lisp}
+@anchor{❨20❩}@c
+@fileindex{bernoulli.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨19❩, , @t{rayleigh.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨62❩, , @t{cdf}}@: (method).
+@item
+@ref{❨145❩, , @t{draw}}@: (method).
+@item
+@ref{❨204❩, , @t{draw-bernoulli}}@: (function).
+@item
+@ref{❨166❩, , @t{mean}}@: (method).
+@item
+@ref{❨93❩, , @t{r-bernoulli}}@: (function).
+@item
+@ref{❨94❩, , @t{r-bernoulli}}@: (structure).
+@item
+@ref{❨75❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨226❩, , @t{copy-r-bernoulli}}@: (function).
+@item
+@ref{❨343❩, , @t{draw-bernoulli-bit}}@: (function).
+@item
+@ref{❨298❩, , @t{make-r-bernoulli}}@: (function).
+@item
+@ref{❨330❩, , @t{pr}}@: (method).
+@item
+@ref{❨296❩, , @t{r-bernoulli-p}}@: (function).
+@item
+@ref{❨263❩, , @t{r-bernoulli-pr}}@: (reader).
+@item
+@ref{❨264❩, , @t{(setf r-bernoulli-pr)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/binomial․lisp file, The distributions/geometric․lisp file, The distributions/bernoulli․lisp file, Lisp files
+@subsection @t{distributions/binomial.lisp}
+@anchor{❨21❩}@c
+@fileindex{binomial.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨20❩, , @t{bernoulli.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨144❩, , @t{draw}}@: (method).
+@item
+@ref{❨52❩, , @t{draw-binomial}}@: (function).
+@item
+@ref{❨165❩, , @t{mean}}@: (method).
+@item
+@ref{❨47❩, , @t{r-binomial}}@: (function).
+@item
+@ref{❨48❩, , @t{r-binomial}}@: (structure).
+@item
+@ref{❨74❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨305❩, , @t{copy-r-binomial}}@: (function).
+@item
+@ref{❨257❩, , @t{make-r-binomial}}@: (function).
+@item
+@ref{❨373❩, , @t{n}}@: (method).
+@item
+@ref{❨329❩, , @t{pr}}@: (method).
+@item
+@ref{❨227❩, , @t{r-binomial-n}}@: (reader).
+@item
+@ref{❨228❩, , @t{(setf r-binomial-n)}}@: (writer).
+@item
+@ref{❨341❩, , @t{r-binomial-p}}@: (function).
+@item
+@ref{❨370❩, , @t{r-binomial-pr}}@: (reader).
+@item
+@ref{❨371❩, , @t{(setf r-binomial-pr)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/geometric․lisp file, The distributions/poisson․lisp file, The distributions/binomial․lisp file, Lisp files
+@subsection @t{distributions/geometric.lisp}
+@anchor{❨22❩}@c
+@fileindex{geometric.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨21❩, , @t{binomial.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨143❩, , @t{draw}}@: (method).
+@item
+@ref{❨92❩, , @t{draw-geometric}}@: (function).
+@item
+@ref{❨164❩, , @t{mean}}@: (method).
+@item
+@ref{❨88❩, , @t{r-geometric}}@: (function).
+@item
+@ref{❨89❩, , @t{r-geometric}}@: (structure).
+@item
+@ref{❨73❩, , @t{variance}}@: (method).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨397❩, , @t{copy-r-geometric}}@: (function).
+@item
+@ref{❨225❩, , @t{make-r-geometric}}@: (function).
+@item
+@ref{❨328❩, , @t{pr}}@: (method).
+@item
+@ref{❨279❩, , @t{r-geometric-p}}@: (function).
+@item
+@ref{❨360❩, , @t{r-geometric-pr}}@: (reader).
+@item
+@ref{❨361❩, , @t{(setf r-geometric-pr)}}@: (writer).
+@end itemize
+@end table
+
+@node The distributions/poisson․lisp file, , The distributions/geometric․lisp file, Lisp files
+@subsection @t{distributions/poisson.lisp}
+@anchor{❨23❩}@c
+@fileindex{poisson.lisp}@c
+@table @strong
+@item Dependency
+@ref{❨22❩, , @t{geometric.lisp}}@: (file).
+@item Source
+@ref{❨2❩, , @t{distributions.asd}}.
+@item Parent Component
+@ref{❨1❩, , @t{distributions}}@: (system).
+@item Public Interface
+@ref{❨181❩, , @t{draw-poisson}}@: (function).
+@end table
+
+
+
+@c ====================================================================
+@c Packages
+@c ====================================================================
+@node Packages, Definitions, Files, Top
+@chapter Packages
+Packages are listed by definition order.
+
+@menu
+* The distributions․internals package::
+* The distributions package::
+@end menu
+
+
+@c -----------------------------------
+@c The distributions.internals package
+@c -----------------------------------
+@node The distributions․internals package, The distributions package, Packages, Packages
+@section @t{distributions.internals}
+@anchor{❨24❩}@c
+@packageindex{distributions.internals}@c
+@table @strong
+@item Source
+@ref{❨3❩, , @t{packages.lisp}}.
+@item Use List
+@itemize @bullet
+@item
+@t{alexandria}.
+@item
+@t{common-lisp}.
+@item
+@t{let-plus}.
+@end itemize
+@item Used By List
+@ref{❨25❩, , @t{distributions}}.
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨29❩, , @t{as-float}}@: (function).
+@item
+@ref{❨30❩, , @t{as-float-probabilities}}@: (function).
+@item
+@ref{❨32❩, , @t{as-float-vector}}@: (function).
+@item
+@ref{❨26❩, , @t{float-vector}}@: (type).
+@item
+@ref{❨28❩, , @t{internal-float}}@: (type).
+@item
+@ref{❨31❩, , @t{maybe-ignore-constant}}@: (macro).
+@item
+@ref{❨33❩, , @t{try}}@: (macro).
+@item
+@ref{❨27❩, , @t{with-floats}}@: (macro).
+@end itemize
+@end table
+
+
+@c -------------------------
+@c The distributions package
+@c -------------------------
+@node The distributions package, , The distributions․internals package, Packages
+@section @t{distributions}
+@anchor{❨25❩}@c
+@packageindex{distributions}@c
+@table @strong
+@item Source
+@ref{❨3❩, , @t{packages.lisp}}.
+@item Use List
+@itemize @bullet
+@item
+@t{alexandria}.
+@item
+@t{anaphora}.
+@item
+@t{common-lisp}.
+@item
+@ref{❨24❩, , @t{distributions.internals}}.
+@item
+@t{let-plus}.
+@item
+@t{num-utils.elementwise}.
+@item
+@t{num-utils.matrix}.
+@item
+@t{num-utils.num=}.
+@item
+@t{special-functions}.
+@end itemize
+@item Public Interface
+@itemize @bullet
+@item
+@ref{❨106❩, , @t{alpha}}@: (generic function).
+@item
+@ref{❨122❩, , @t{beta}}@: (generic function).
+@item
+@ref{❨126❩, , @t{borosh13}}@: (class).
+@item
+@ref{❨61❩, , @t{cdf}}@: (generic function).
+@item
+@ref{❨135❩, , @t{distinct-random-integers}}@: (function).
+@item
+@ref{❨91❩, , @t{distinct-random-integers-dense}}@: (function).
+@item
+@ref{❨142❩, , @t{draw}}@: (generic function).
+@item
+@ref{❨204❩, , @t{draw-bernoulli}}@: (function).
+@item
+@ref{❨52❩, , @t{draw-binomial}}@: (function).
+@item
+@ref{❨161❩, , @t{draw-exponential}}@: (function).
+@item
+@ref{❨92❩, , @t{draw-geometric}}@: (function).
+@item
+@ref{❨181❩, , @t{draw-poisson}}@: (function).
+@item
+@ref{❨160❩, , @t{draw-rayleigh}}@: (function).
+@item
+@ref{❨87❩, , @t{draw-standard-exponential}}@: (function).
+@item
+@ref{❨162❩, , @t{draw-standard-normal}}@: (function).
+@item
+@ref{❨134❩, , @t{draw-standard-t}}@: (function).
+@item
+@ref{❨71❩, , @t{draw-uniform}}@: (function).
+@item
+@ref{❨121❩, , @t{from-standard-normal}}@: (function).
+@item
+@ref{❨211❩, , @t{generator}}@: (generic function).
+@item
+@ref{❨213❩, , @t{generator}}@: (class).
+@item
+@ref{❨119❩, , @t{left}}@: (generic function).
+@item
+@ref{❨110❩, , @t{log-pdf}}@: (generic function).
+@item
+@ref{❨210❩, , @t{make-generator}}@: (function).
+@item
+@ref{❨163❩, , @t{mean}}@: (generic function).
+@item
+@ref{❨34❩, , @t{next}}@: (function).
+@item
+@ref{❨43❩, , @t{nu}}@: (generic function).
+@item
+@ref{❨180❩, , @t{pdf}}@: (function).
+@item
+@ref{❨158❩, , @t{probabilities}}@: (generic function).
+@item
+@ref{❨189❩, , @t{quantile}}@: (generic function).
+@item
+@ref{❨93❩, , @t{r-bernoulli}}@: (function).
+@item
+@ref{❨94❩, , @t{r-bernoulli}}@: (structure).
+@item
+@ref{❨185❩, , @t{r-beta}}@: (function).
+@item
+@ref{❨186❩, , @t{r-beta}}@: (structure).
+@item
+@ref{❨47❩, , @t{r-binomial}}@: (function).
+@item
+@ref{❨48❩, , @t{r-binomial}}@: (structure).
+@item
+@ref{❨197❩, , @t{r-chi-square}}@: (function).
+@item
+@ref{❨35❩, , @t{r-discrete}}@: (function).
+@item
+@ref{❨36❩, , @t{r-discrete}}@: (structure).
+@item
+@ref{❨139❩, , @t{r-exponential}}@: (function).
+@item
+@ref{❨140❩, , @t{r-exponential}}@: (structure).
+@item
+@ref{❨57❩, , @t{r-gamma}}@: (function).
+@item
+@ref{❨58❩, , @t{r-gamma}}@: (structure).
+@item
+@ref{❨88❩, , @t{r-geometric}}@: (function).
+@item
+@ref{❨89❩, , @t{r-geometric}}@: (structure).
+@item
+@ref{❨133❩, , @t{r-inverse-chi-square}}@: (function).
+@item
+@ref{❨129❩, , @t{r-inverse-gamma}}@: (function).
+@item
+@ref{❨130❩, , @t{r-inverse-gamma}}@: (structure).
+@item
+@ref{❨53❩, , @t{r-log-normal}}@: (function).
+@item
+@ref{❨54❩, , @t{r-log-normal}}@: (structure).
+@item
+@ref{❨206❩, , @t{r-normal}}@: (function).
+@item
+@ref{❨207❩, , @t{r-normal}}@: (structure).
+@item
+@ref{❨198❩, , @t{r-rayleigh}}@: (function).
+@item
+@ref{❨199❩, , @t{r-rayleigh}}@: (structure).
+@item
+@ref{❨96❩, , @t{r-t}}@: (function).
+@item
+@ref{❨97❩, , @t{r-t}}@: (structure).
+@item
+@ref{❨205❩, , @t{r-truncated-normal}}@: (function).
+@item
+@ref{❨101❩, , @t{r-uniform}}@: (function).
+@item
+@ref{❨102❩, , @t{r-uniform}}@: (structure).
+@item
+@ref{❨201❩, , @t{randu}}@: (class).
+@item
+@ref{❨41❩, , @t{rate}}@: (generic function).
+@item
+@ref{❨178❩, , @t{right}}@: (generic function).
+@item
+@ref{❨182❩, , @t{scale}}@: (generic function).
+@item
+@ref{❨219❩, , @t{standard-deviation}}@: (generic function).
+@item
+@ref{❨224❩, , @t{t-scale-to-variance-coefficient}}@: (function).
+@item
+@ref{❨51❩, , @t{to-standard-normal}}@: (function).
+@item
+@ref{❨136❩, , @t{transputer}}@: (class).
+@item
+@ref{❨72❩, , @t{variance}}@: (generic function).
+@item
+@ref{❨221❩, , @t{waterman14}}@: (class).
+@end itemize
+@item Internals
+@itemize @bullet
+@item
+@ref{❨253❩, , @t{%next-double-float}}@: (function).
+@item
+@ref{❨402❩, , @t{%next-integer}}@: (function).
+@item
+@ref{❨356❩, , @t{%next-single-float}}@: (function).
+@item
+@ref{❨391❩, , @t{*default-generator-type*}}@: (special variable).
+@item
+@ref{❨367❩, , @t{+normal-log-pdf-constant+}}@: (constant).
+@item
+@ref{❨376❩, , @t{a}}@: (generic reader).
+@item
+@ref{❨324❩, , @t{cdf-gamma%}}@: (function).
+@item
+@ref{❨301❩, , @t{cdf-gamma%+}}@: (function).
+@item
+@ref{❨355❩, , @t{cdf-normal%}}@: (function).
+@item
+@ref{❨326❩, , @t{check-probability}}@: (function).
+@item
+@ref{❨274❩, , @t{chunk-length}}@: (generic reader).
+@item
+@ref{❨307❩, , @t{clone}}@: (generic function).
+@item
+@ref{❨388❩, , @t{copy-left-truncated-normal}}@: (function).
+@item
+@ref{❨226❩, , @t{copy-r-bernoulli}}@: (function).
+@item
+@ref{❨256❩, , @t{copy-r-beta}}@: (function).
+@item
+@ref{❨305❩, , @t{copy-r-binomial}}@: (function).
+@item
+@ref{❨229❩, , @t{copy-r-discrete}}@: (function).
+@item
+@ref{❨238❩, , @t{copy-r-exponential}}@: (function).
+@item
+@ref{❨291❩, , @t{copy-r-gamma}}@: (function).
+@item
+@ref{❨397❩, , @t{copy-r-geometric}}@: (function).
+@item
+@ref{❨380❩, , @t{copy-r-inverse-gamma}}@: (function).
+@item
+@ref{❨383❩, , @t{copy-r-log-normal}}@: (function).
+@item
+@ref{❨316❩, , @t{copy-r-normal}}@: (function).
+@item
+@ref{❨344❩, , @t{copy-r-rayleigh}}@: (function).
+@item
+@ref{❨280❩, , @t{copy-r-t}}@: (function).
+@item
+@ref{❨259❩, , @t{copy-r-uniform}}@: (function).
+@item
+@ref{❨340❩, , @t{copy-r-univariate}}@: (function).
+@item
+@ref{❨321❩, , @t{copy-state}}@: (generic function).
+@item
+@ref{❨271❩, , @t{default-seed}}@: (generic reader).
+@item
+@ref{❨359❩, , @t{define-rv}}@: (macro).
+@item
+@ref{❨343❩, , @t{draw-bernoulli-bit}}@: (function).
+@item
+@ref{❨398❩, , @t{draw-left-truncated-standard-normal}}@: (function).
+@item
+@ref{❨297❩, , @t{draw-standard-gamma1}}@: (function).
+@item
+@ref{❨309❩, , @t{generate-seed}}@: (function).
+@item
+@ref{❨244❩, , @t{generate-state}}@: (generic function).
+@item
+@ref{❨332❩, , @t{left-truncated-normal}}@: (function).
+@item
+@ref{❨333❩, , @t{left-truncated-normal}}@: (structure).
+@item
+@ref{❨386❩, , @t{left-truncated-normal-alpha}}@: (reader).
+@item
+@ref{❨387❩, , @t{(setf left-truncated-normal-alpha)}}@: (writer).
+@item
+@ref{❨261❩, , @t{left-truncated-normal-left}}@: (reader).
+@item
+@ref{❨262❩, , @t{(setf left-truncated-normal-left)}}@: (writer).
+@item
+@ref{❨248❩, , @t{left-truncated-normal-left-standardized}}@: (reader).
+@item
+@ref{❨249❩, , @t{(setf left-truncated-normal-left-standardized)}}@: (writer).
+@item
+@ref{❨345❩, , @t{left-truncated-normal-m0}}@: (reader).
+@item
+@ref{❨346❩, , @t{(setf left-truncated-normal-m0)}}@: (writer).
+@item
+@ref{❨287❩, , @t{left-truncated-normal-mu}}@: (reader).
+@item
+@ref{❨288❩, , @t{(setf left-truncated-normal-mu)}}@: (writer).
+@item
+@ref{❨379❩, , @t{left-truncated-normal-p}}@: (function).
+@item
+@ref{❨381❩, , @t{left-truncated-normal-sigma}}@: (reader).
+@item
+@ref{❨382❩, , @t{(setf left-truncated-normal-sigma)}}@: (writer).
+@item
+@ref{❨254❩, , @t{m}}@: (generic reader).
+@item
+@ref{❨250❩, , @t{make-left-truncated-normal}}@: (function).
+@item
+@ref{❨298❩, , @t{make-r-bernoulli}}@: (function).
+@item
+@ref{❨270❩, , @t{make-r-beta}}@: (function).
+@item
+@ref{❨257❩, , @t{make-r-binomial}}@: (function).
+@item
+@ref{❨390❩, , @t{make-r-discrete}}@: (function).
+@item
+@ref{❨306❩, , @t{make-r-exponential}}@: (function).
+@item
+@ref{❨260❩, , @t{make-r-gamma}}@: (function).
+@item
+@ref{❨225❩, , @t{make-r-geometric}}@: (function).
+@item
+@ref{❨389❩, , @t{make-r-inverse-gamma}}@: (function).
+@item
+@ref{❨378❩, , @t{make-r-log-normal}}@: (function).
+@item
+@ref{❨392❩, , @t{make-r-normal}}@: (function).
+@item
+@ref{❨278❩, , @t{make-r-rayleigh}}@: (function).
+@item
+@ref{❨273❩, , @t{make-r-t}}@: (function).
+@item
+@ref{❨286❩, , @t{make-r-uniform}}@: (function).
+@item
+@ref{❨401❩, , @t{make-r-univariate}}@: (function).
+@item
+@ref{❨372❩, , @t{n}}@: (generic function).
+@item
+@ref{❨384❩, , @t{next-chunk}}@: (generic function).
+@item
+@ref{❨368❩, , @t{next-real}}@: (generic function).
+@item
+@ref{❨285❩, , @t{pdf-gamma}}@: (function).
+@item
+@ref{❨364❩, , @t{pdf-gamma%}}@: (function).
+@item
+@ref{❨325❩, , @t{pdf-gamma*}}@: (function).
+@item
+@ref{❨247❩, , @t{pdf-gamma+}}@: (function).
+@item
+@ref{❨304❩, , @t{pdf-normal%}}@: (function).
+@item
+@ref{❨327❩, , @t{pr}}@: (generic function).
+@item
+@ref{❨295❩, , @t{quantile-normal%}}@: (function).
+@item
+@ref{❨296❩, , @t{r-bernoulli-p}}@: (function).
+@item
+@ref{❨263❩, , @t{r-bernoulli-pr}}@: (reader).
+@item
+@ref{❨264❩, , @t{(setf r-bernoulli-pr)}}@: (writer).
+@item
+@ref{❨353❩, , @t{r-beta-alpha}}@: (reader).
+@item
+@ref{❨354❩, , @t{(setf r-beta-alpha)}}@: (writer).
+@item
+@ref{❨232❩, , @t{r-beta-beta}}@: (reader).
+@item
+@ref{❨233❩, , @t{(setf r-beta-beta)}}@: (writer).
+@item
+@ref{❨265❩, , @t{r-beta-p}}@: (function).
+@item
+@ref{❨227❩, , @t{r-binomial-n}}@: (reader).
+@item
+@ref{❨228❩, , @t{(setf r-binomial-n)}}@: (writer).
+@item
+@ref{❨341❩, , @t{r-binomial-p}}@: (function).
+@item
+@ref{❨370❩, , @t{r-binomial-pr}}@: (reader).
+@item
+@ref{❨371❩, , @t{(setf r-binomial-pr)}}@: (writer).
+@item
+@ref{❨266❩, , @t{r-discrete-alias}}@: (reader).
+@item
+@ref{❨267❩, , @t{(setf r-discrete-alias)}}@: (writer).
+@item
+@ref{❨251❩, , @t{r-discrete-n-float}}@: (reader).
+@item
+@ref{❨252❩, , @t{(setf r-discrete-n-float)}}@: (writer).
+@item
+@ref{❨349❩, , @t{r-discrete-p}}@: (function).
+@item
+@ref{❨239❩, , @t{r-discrete-prob}}@: (reader).
+@item
+@ref{❨240❩, , @t{(setf r-discrete-prob)}}@: (writer).
+@item
+@ref{❨276❩, , @t{r-discrete-probabilities}}@: (reader).
+@item
+@ref{❨277❩, , @t{(setf r-discrete-probabilities)}}@: (writer).
+@item
+@ref{❨375❩, , @t{r-exponential-p}}@: (function).
+@item
+@ref{❨268❩, , @t{r-exponential-rate}}@: (reader).
+@item
+@ref{❨269❩, , @t{(setf r-exponential-rate)}}@: (writer).
+@item
+@ref{❨302❩, , @t{r-gamma-alpha}}@: (reader).
+@item
+@ref{❨303❩, , @t{(setf r-gamma-alpha)}}@: (writer).
+@item
+@ref{❨347❩, , @t{r-gamma-beta}}@: (reader).
+@item
+@ref{❨348❩, , @t{(setf r-gamma-beta)}}@: (writer).
+@item
+@ref{❨292❩, , @t{r-gamma-p}}@: (function).
+@item
+@ref{❨279❩, , @t{r-geometric-p}}@: (function).
+@item
+@ref{❨360❩, , @t{r-geometric-pr}}@: (reader).
+@item
+@ref{❨361❩, , @t{(setf r-geometric-pr)}}@: (writer).
+@item
+@ref{❨319❩, , @t{r-inverse-gamma-alpha}}@: (reader).
+@item
+@ref{❨320❩, , @t{(setf r-inverse-gamma-alpha)}}@: (writer).
+@item
+@ref{❨393❩, , @t{r-inverse-gamma-beta}}@: (reader).
+@item
+@ref{❨394❩, , @t{(setf r-inverse-gamma-beta)}}@: (writer).
+@item
+@ref{❨331❩, , @t{r-inverse-gamma-p}}@: (function).
+@item
+@ref{❨357❩, , @t{r-log-normal-log-mean}}@: (reader).
+@item
+@ref{❨358❩, , @t{(setf r-log-normal-log-mean)}}@: (writer).
+@item
+@ref{❨299❩, , @t{r-log-normal-log-sd}}@: (reader).
+@item
+@ref{❨300❩, , @t{(setf r-log-normal-log-sd)}}@: (writer).
+@item
+@ref{❨350❩, , @t{r-log-normal-p}}@: (function).
+@item
+@ref{❨241❩, , @t{r-normal-mean}}@: (reader).
+@item
+@ref{❨242❩, , @t{(setf r-normal-mean)}}@: (writer).
+@item
+@ref{❨258❩, , @t{r-normal-p}}@: (function).
+@item
+@ref{❨293❩, , @t{r-normal-sd}}@: (reader).
+@item
+@ref{❨294❩, , @t{(setf r-normal-sd)}}@: (writer).
+@item
+@ref{❨403❩, , @t{r-rayleigh-p}}@: (function).
+@item
+@ref{❨365❩, , @t{r-rayleigh-scale}}@: (reader).
+@item
+@ref{❨366❩, , @t{(setf r-rayleigh-scale)}}@: (writer).
+@item
+@ref{❨351❩, , @t{r-t-mean}}@: (reader).
+@item
+@ref{❨352❩, , @t{(setf r-t-mean)}}@: (writer).
+@item
+@ref{❨395❩, , @t{r-t-nu}}@: (reader).
+@item
+@ref{❨396❩, , @t{(setf r-t-nu)}}@: (writer).
+@item
+@ref{❨230❩, , @t{r-t-p}}@: (function).
+@item
+@ref{❨317❩, , @t{r-t-scale}}@: (reader).
+@item
+@ref{❨318❩, , @t{(setf r-t-scale)}}@: (writer).
+@item
+@ref{❨399❩, , @t{r-uniform-left}}@: (reader).
+@item
+@ref{❨400❩, , @t{(setf r-uniform-left)}}@: (writer).
+@item
+@ref{❨315❩, , @t{r-uniform-p}}@: (function).
+@item
+@ref{❨362❩, , @t{r-uniform-right}}@: (reader).
+@item
+@ref{❨363❩, , @t{(setf r-uniform-right)}}@: (writer).
+@item
+@ref{❨289❩, , @t{r-uniform-width}}@: (reader).
+@item
+@ref{❨290❩, , @t{(setf r-uniform-width)}}@: (writer).
+@item
+@ref{❨374❩, , @t{r-univariate}}@: (structure).
+@item
+@ref{❨342❩, , @t{r-univariate-p}}@: (function).
+@item
+@ref{❨313❩, , @t{s^2}}@: (generic function).
+@item
+@ref{❨311❩, , @t{sd}}@: (generic function).
+@item
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}@: (class).
+@item
+@ref{❨310❩, , @t{standard-gamma1-d-c}}@: (function).
+@item
+@ref{❨234❩, , @t{state}}@: (generic reader).
+@item
+@ref{❨236❩, , @t{(setf state)}}@: (generic writer).
+@item
+@ref{❨231❩, , @t{truncated-normal-moments%}}@: (function).
+@item
+@ref{❨243❩, , @t{truncated-normal-optimal-alpha}}@: (function).
+@end itemize
+@end table
+
+
+
+@c ====================================================================
+@c Definitions
+@c ====================================================================
+@node Definitions, Indexes, Packages, Top
+@chapter Definitions
+Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+
+@menu
+* Public Interface::
+* Internals::
+@end menu
+
+
+@c ----------------
+@c Public Interface
+@c ----------------
+@node Public Interface, Internals, Definitions, Definitions
+@section Public Interface
+@menu
+* Public macros::
+* Public ordinary functions::
+* Public generic functions::
+* Public standalone methods::
+* Public structures::
+* Public classes::
+* Public types::
+@end menu
+
+@node Public macros, Public ordinary functions, Public Interface, Public Interface
+@subsection Macros
+@deffn {Macro} {maybe-ignore-constant} (ignore-constant? value constant)
+@anchor{❨31❩}@c
+@macrosubindex{maybe-ignore-constant}@c
+Handle a constant that is calculated only when IGNORE-CONSTANT? is NIL and VALUE is not negative infinity (represented by NIL).
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deffn
+@deffn {Macro} {try} ((&rest bindings) condition value)
+@anchor{❨33❩}@c
+@macrosubindex{try}@c
+Evaluate bindings (expanding into LET+@comma{} so all features can be used) until condition is satisfied@comma{} then return value.
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deffn
+@deffn {Macro} {with-floats} ((&rest variables) &body body)
+@anchor{❨27❩}@c
+@macrosubindex{with-floats}@c
+Rebind each variable@comma{} coerced to the internal float type used by DISTRIBUTIONS.
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deffn
+
+@node Public ordinary functions, Public generic functions, Public macros, Public Interface
+@subsection Ordinary functions
+@deffn {Function} {as-float} (x)
+@anchor{❨29❩}@c
+@functionsubindex{as-float}@c
+Return the argument coerced to the DISTRIBUTIONS library's internal float type.
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {as-float-probabilities} (vector)
+@anchor{❨30❩}@c
+@functionsubindex{as-float-probabilities}@c
+Normalize vector as probabilities@comma{} assert that all are positive@comma{} return them as a VECTOR-DOUBLE-FLOAT.  Vector is always copied.
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {as-float-vector} (vector &key copy?)
+@anchor{❨32❩}@c
+@functionsubindex{as-float-vector}@c
+Return VECTOR converted to another vector with elements converted to INTERNAL-FLOAT if necessary.  When COPY?@comma{} the vector is always copied.
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {distinct-random-integers} (count limit &key rng)
+@anchor{❨135❩}@c
+@functionsubindex{distinct-random-integers}@c
+Return a vector of COUNT distinct random integers@comma{} in increasing order@comma{}
+drawn from the uniform discrete distribution on @lbracechar{}0 @comma{} ...@comma{} limit-1@rbracechar{}.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {distinct-random-integers-dense} (count limit &key rng)
+@anchor{❨91❩}@c
+@functionsubindex{distinct-random-integers-dense}@c
+Implementation of DISTINCT-RANDOM-INTEGERS when count/limit is (relatively)
+high. Implements algorithm S from @atchar{}cite@lbracechar{}taocp3@rbracechar{}@comma{} p 142.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-bernoulli} (p &key rng)
+@anchor{❨204❩}@c
+@functionsubindex{draw-bernoulli}@c
+Return T with probability p@comma{} otherwise NIL. Rationals are handled exactly.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-binomial} (p n &key rng)
+@anchor{❨52❩}@c
+@functionsubindex{draw-binomial}@c
+Return the number of successes out of N Bernoulli trials with probability
+of success P.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-exponential} (rate &key rng)
+@anchor{❨161❩}@c
+@functionsubindex{draw-exponential}@c
+Return a random variable from the Exponential(rate) distribution which has density rate*exp(-rate*x) for x>=0 and 0 for x<0. rate > 0.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-geometric} (p &key rng)
+@anchor{❨92❩}@c
+@functionsubindex{draw-geometric}@c
+Return the number of Bernoulli trials@comma{} with probability of success P@comma{} that were needed to reach the first success. This is >= 1.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-poisson} (lamda &key rng)
+@anchor{❨181❩}@c
+@functionsubindex{draw-poisson}@c
+Return the number of events that occur with probability LAMDA.  The algorithm is from Donald E. Knuth (1969).  Seminumerical Algorithms.  The Art of Computer Programming@comma{} Volume 2. Addison Wesley.  WARNING: It's simple but only linear in the return value K and is numerically unstable for large LAMDA.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨23❩, , @t{poisson.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-rayleigh} (scale &key rng)
+@anchor{❨160❩}@c
+@functionsubindex{draw-rayleigh}@c
+Return a random variable from the Rayleigh(scale) distribution@comma{} where scale > 0 and
+density x * exp(-x^2 / (2 scale^2)) / scale^2 for x>=0 and 0 for x<0.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-standard-exponential} (&key rng)
+@anchor{❨87❩}@c
+@functionsubindex{draw-standard-exponential}@c
+Return a random variable from the Exponential(1) distribution@comma{} which has density exp(-x) for x>=0 and 0 for x<0.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-standard-normal} (&key rng)
+@anchor{❨162❩}@c
+@functionsubindex{draw-standard-normal}@c
+Draw a random number from N(0@comma{}1).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-standard-t} (nu &key rng)
+@anchor{❨134❩}@c
+@functionsubindex{draw-standard-t}@c
+Draw a standard T random variate@comma{} with NU degrees of freedom.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-uniform} (left right &key rng)
+@anchor{❨71❩}@c
+@functionsubindex{draw-uniform}@c
+Return a random variable from the uniform distribution between LEFT and RIGHT. It's type is
+the same as that of (- LEFT RIGHT).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {from-standard-normal} (x mu sigma)
+@anchor{❨121❩}@c
+@functionsubindex{from-standard-normal}@c
+Scale x from standard normal.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-generator} (&key seed type)
+@anchor{❨210❩}@c
+@functionsubindex{make-generator}@c
+Make a random number generator object. SEED can be any of NIL@comma{} T@comma{} an other generator@comma{} an integer@comma{} or any type of seed that a generator of type TYPE supports:
+- NIL: the generator's STD-SEED is used;@*
+- T: a random seed is used;@*
+- a generator: a clone is returned;@*
+- otherwise: SEED is used as depends on the generator.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {next} (limit &optional rng)
+@anchor{❨34❩}@c
+@functionsubindex{next}@c
+Generates a uniformly distributed pseudo-random number greater than or equal to zero
+and less than LIMIT. RNG@comma{} if supplied@comma{} is the random generator to use.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {pdf} (rv x &optional ignore-constant?)
+@anchor{❨180❩}@c
+@functionsubindex{pdf}@c
+Probability distribution function of RANDOM-VARIABLE at X.  See LOG-PDF for the semantics of IGNORE-CONSTANT?.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-bernoulli} (pr)
+@anchor{❨93❩}@c
+@functionsubindex{r-bernoulli}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-beta} (alpha beta)
+@anchor{❨185❩}@c
+@functionsubindex{r-beta}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-binomial} (pr n)
+@anchor{❨47❩}@c
+@functionsubindex{r-binomial}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-chi-square} (nu)
+@anchor{❨197❩}@c
+@functionsubindex{r-chi-square}@c
+Chi-square distribution with NU degrees of freedom.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨17❩, , @t{chi-square.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-discrete} (probabilities)
+@anchor{❨35❩}@c
+@functionsubindex{r-discrete}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-exponential} (rate)
+@anchor{❨139❩}@c
+@functionsubindex{r-exponential}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-gamma} (alpha beta)
+@anchor{❨57❩}@c
+@functionsubindex{r-gamma}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-geometric} (pr)
+@anchor{❨88❩}@c
+@functionsubindex{r-geometric}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-inverse-chi-square} (nu &optional s^2)
+@anchor{❨133❩}@c
+@functionsubindex{r-inverse-chi-square}@c
+Generalized inverse chi-square distribution.  Reparametrized to INVERSE-GAMMA.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨17❩, , @t{chi-square.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-inverse-gamma} (alpha beta)
+@anchor{❨129❩}@c
+@functionsubindex{r-inverse-gamma}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-log-normal} (log-mean log-sd)
+@anchor{❨53❩}@c
+@functionsubindex{r-log-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-normal} (&optional mean variance)
+@anchor{❨206❩}@c
+@functionsubindex{r-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-rayleigh} (scale)
+@anchor{❨198❩}@c
+@functionsubindex{r-rayleigh}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-t} (mean scale nu)
+@anchor{❨96❩}@c
+@functionsubindex{r-t}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-truncated-normal} (left right &optional mu sigma)
+@anchor{❨205❩}@c
+@functionsubindex{r-truncated-normal}@c
+Truncated normal distribution.  If LEFT or RIGHT is NIL@comma{} it corresponds to -/+ infinity.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-uniform} (left right)
+@anchor{❨101❩}@c
+@functionsubindex{r-uniform}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {t-scale-to-variance-coefficient} (nu)
+@anchor{❨224❩}@c
+@functionsubindex{t-scale-to-variance-coefficient}@c
+Return the coefficient that multiplies the Sigma matrix or the squared
+scale to get the variance of a (multivariate) Student-T distribution.  Also
+checks that nu > 2@comma{} ie the variance is defined.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {to-standard-normal} (x mu sigma)
+@anchor{❨51❩}@c
+@functionsubindex{to-standard-normal}@c
+Scale x to standard normal.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+
+@node Public generic functions, Public standalone methods, Public ordinary functions, Public Interface
+@subsection Generic functions
+@deffn {Generic Function} {alpha} (r-gamma0)
+@anchor{❨106❩}@c
+@genericsubindex{alpha}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {alpha} ((r-beta0 @ref{❨186❩, , @t{r-beta}}))
+@anchor{❨107❩}@c
+@methodsubindex{alpha}@c
+@table @strong
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {alpha} ((r-inverse-gamma0 @ref{❨130❩, , @t{r-inverse-gamma}}))
+@anchor{❨108❩}@c
+@methodsubindex{alpha}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {alpha} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}))
+@anchor{❨109❩}@c
+@methodsubindex{alpha}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {beta} (r-gamma0)
+@anchor{❨122❩}@c
+@genericsubindex{beta}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {beta} ((r-beta0 @ref{❨186❩, , @t{r-beta}}))
+@anchor{❨123❩}@c
+@methodsubindex{beta}@c
+@table @strong
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {beta} ((r-inverse-gamma0 @ref{❨130❩, , @t{r-inverse-gamma}}))
+@anchor{❨124❩}@c
+@methodsubindex{beta}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {beta} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}))
+@anchor{❨125❩}@c
+@methodsubindex{beta}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {cdf} (random-variable x)
+@anchor{❨61❩}@c
+@genericsubindex{cdf}@c
+Cumulative distribution function of RANDOM-VARIABLE at
+  X.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@item Methods
+@deffn {Method} {cdf} ((r-bernoulli0 @ref{❨94❩, , @t{r-bernoulli}}) x)
+@anchor{❨62❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((r-rayleigh0 @ref{❨199❩, , @t{r-rayleigh}}) x)
+@anchor{❨63❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}) x)
+@anchor{❨64❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((left-truncated-normal0 @ref{❨333❩, , @t{left-truncated-normal}}) x)
+@anchor{❨65❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((r-log-normal0 @ref{❨54❩, , @t{r-log-normal}}) x)
+@anchor{❨66❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((r-normal0 @ref{❨207❩, , @t{r-normal}}) x)
+@anchor{❨67❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}) x)
+@anchor{❨68❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}) x)
+@anchor{❨69❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {cdf} ((instance @ref{❨36❩, , @t{r-discrete}}) i)
+@anchor{❨70❩}@c
+@methodsubindex{cdf}@c
+@table @strong
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {draw} (random-variable &key rng &allow-other-keys)
+@anchor{❨142❩}@c
+@genericsubindex{draw}@c
+Draw random variates.  Can also be used on generators.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@item Methods
+@deffn {Method} {draw} ((r-geometric0 @ref{❨89❩, , @t{r-geometric}}) &key rng)
+@anchor{❨143❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-binomial0 @ref{❨48❩, , @t{r-binomial}}) &key rng)
+@anchor{❨144❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-bernoulli0 @ref{❨94❩, , @t{r-bernoulli}}) &key rng)
+@anchor{❨145❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-rayleigh0 @ref{❨199❩, , @t{r-rayleigh}}) &key rng)
+@anchor{❨146❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-beta0 @ref{❨186❩, , @t{r-beta}}) &key rng)
+@anchor{❨147❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-inverse-gamma0 @ref{❨130❩, , @t{r-inverse-gamma}}) &key rng)
+@anchor{❨148❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}) &key rng)
+@anchor{❨149❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-t0 @ref{❨97❩, , @t{r-t}}) &key rng)
+@anchor{❨150❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((left-truncated-normal0 @ref{❨333❩, , @t{left-truncated-normal}}) &key rng)
+@anchor{❨151❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-log-normal0 @ref{❨54❩, , @t{r-log-normal}}) &key rng)
+@anchor{❨152❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-normal0 @ref{❨207❩, , @t{r-normal}}) &key rng)
+@anchor{❨153❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}) &key rng)
+@anchor{❨154❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}) &key rng)
+@anchor{❨155❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((instance @ref{❨36❩, , @t{r-discrete}}) &key rng)
+@anchor{❨156❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {draw} ((function @t{function}) &key rng)
+@anchor{❨157❩}@c
+@methodsubindex{draw}@c
+@table @strong
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {generator} (random-variable &key rng)
+@anchor{❨211❩}@c
+@genericsubindex{generator}@c
+Return a closure that returns random draws.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@item Methods
+@deffn {Method} {generator} (random-variable &key rng)
+@anchor{❨212❩}@c
+@methodsubindex{generator}@c
+@table @strong
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {left} (r-uniform0)
+@anchor{❨119❩}@c
+@genericsubindex{left}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {left} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}))
+@anchor{❨120❩}@c
+@methodsubindex{left}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {log-pdf} (random-variable x &optional ignore-constant?)
+@anchor{❨110❩}@c
+@genericsubindex{log-pdf}@c
+Log of probability distribution function of RANDOM-VARIABLE at X.  NIL corresponds to log(-infinity).  When IGNORE-CONSTANT?@comma{} the result may be shifted by an arbitrary real constant that does not change between calls of the same RANDOM-VARIABLE.  This may save computation@comma{} and is useful for MCMC methods@comma{} etc.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@item Methods
+@deffn {Method} {log-pdf} ((r-inverse-gamma0 @ref{❨130❩, , @t{r-inverse-gamma}}) x &optional ignore-constant?)
+@anchor{❨111❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}) x &optional ignore-constant?)
+@anchor{❨112❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((left-truncated-normal0 @ref{❨333❩, , @t{left-truncated-normal}}) x &optional ignore-constant?)
+@anchor{❨113❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((r-log-normal0 @ref{❨54❩, , @t{r-log-normal}}) x &optional ignore-constant?)
+@anchor{❨114❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((r-normal0 @ref{❨207❩, , @t{r-normal}}) x &optional ignore-constant?)
+@anchor{❨115❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}) x &optional ignore-constant?)
+@anchor{❨116❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}) x &optional ignore-constant?)
+@anchor{❨117❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {log-pdf} ((instance @ref{❨36❩, , @t{r-discrete}}) i &optional ignore-constant?)
+@anchor{❨118❩}@c
+@methodsubindex{log-pdf}@c
+@table @strong
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {mean} (random-variable)
+@anchor{❨163❩}@c
+@genericsubindex{mean}@c
+Mean of random variable.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@item Methods
+@deffn {Method} {mean} ((r-geometric0 @ref{❨89❩, , @t{r-geometric}}))
+@anchor{❨164❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-binomial0 @ref{❨48❩, , @t{r-binomial}}))
+@anchor{❨165❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-bernoulli0 @ref{❨94❩, , @t{r-bernoulli}}))
+@anchor{❨166❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-rayleigh0 @ref{❨199❩, , @t{r-rayleigh}}))
+@anchor{❨167❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-beta0 @ref{❨186❩, , @t{r-beta}}))
+@anchor{❨168❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-inverse-gamma0 @ref{❨130❩, , @t{r-inverse-gamma}}))
+@anchor{❨169❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}))
+@anchor{❨170❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-t0 @ref{❨97❩, , @t{r-t}}))
+@anchor{❨171❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((left-truncated-normal0 @ref{❨333❩, , @t{left-truncated-normal}}))
+@anchor{❨172❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-log-normal0 @ref{❨54❩, , @t{r-log-normal}}))
+@anchor{❨173❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-normal0 @ref{❨207❩, , @t{r-normal}}))
+@anchor{❨174❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}))
+@anchor{❨175❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}))
+@anchor{❨176❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {mean} ((instance @ref{❨36❩, , @t{r-discrete}}))
+@anchor{❨177❩}@c
+@methodsubindex{mean}@c
+@table @strong
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {nu} (distribution)
+@anchor{❨43❩}@c
+@genericsubindex{nu}@c
+Return the degrees of freedom when applicable.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@item Methods
+@deffn {Method} {nu} ((r-inverse-gamma @ref{❨130❩, , @t{r-inverse-gamma}}))
+@anchor{❨44❩}@c
+@methodsubindex{nu}@c
+@table @strong
+@item Source
+@ref{❨17❩, , @t{chi-square.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {nu} ((r-gamma @ref{❨58❩, , @t{r-gamma}}))
+@anchor{❨45❩}@c
+@methodsubindex{nu}@c
+@table @strong
+@item Source
+@ref{❨17❩, , @t{chi-square.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {nu} ((r-t0 @ref{❨97❩, , @t{r-t}}))
+@anchor{❨46❩}@c
+@methodsubindex{nu}@c
+@table @strong
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {probabilities} (instance)
+@anchor{❨158❩}@c
+@genericsubindex{probabilities}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {probabilities} ((instance @ref{❨36❩, , @t{r-discrete}}))
+@anchor{❨159❩}@c
+@methodsubindex{probabilities}@c
+@table @strong
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {quantile} (r-uniform0 p)
+@anchor{❨189❩}@c
+@genericsubindex{quantile}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {quantile} ((r-beta0 @ref{❨186❩, , @t{r-beta}}) q)
+@anchor{❨190❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {quantile} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}) q)
+@anchor{❨191❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {quantile} ((left-truncated-normal0 @ref{❨333❩, , @t{left-truncated-normal}}) q)
+@anchor{❨192❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {quantile} ((r-log-normal0 @ref{❨54❩, , @t{r-log-normal}}) q)
+@anchor{❨193❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {quantile} ((r-normal0 @ref{❨207❩, , @t{r-normal}}) q)
+@anchor{❨194❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {quantile} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}) p)
+@anchor{❨195❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {quantile} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}) p)
+@anchor{❨196❩}@c
+@methodsubindex{quantile}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {rate} (r-exponential0)
+@anchor{❨41❩}@c
+@genericsubindex{rate}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {rate} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}))
+@anchor{❨42❩}@c
+@methodsubindex{rate}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {right} (r-uniform0)
+@anchor{❨178❩}@c
+@genericsubindex{right}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {right} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}))
+@anchor{❨179❩}@c
+@methodsubindex{right}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {scale} (r-t0)
+@anchor{❨182❩}@c
+@genericsubindex{scale}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {scale} ((r-rayleigh0 @ref{❨199❩, , @t{r-rayleigh}}))
+@anchor{❨183❩}@c
+@methodsubindex{scale}@c
+@table @strong
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {scale} ((r-t0 @ref{❨97❩, , @t{r-t}}))
+@anchor{❨184❩}@c
+@methodsubindex{scale}@c
+@table @strong
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {standard-deviation} (random-variable)
+@anchor{❨219❩}@c
+@genericsubindex{standard-deviation}@c
+Standard deviation of random variable.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@item Methods
+@deffn {Method} {standard-deviation} ((random-variable @ref{❨374❩, , @t{r-univariate}}))
+@anchor{❨220❩}@c
+@methodsubindex{standard-deviation}@c
+@table @strong
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {variance} (random-variable)
+@anchor{❨72❩}@c
+@genericsubindex{variance}@c
+Variance of random variable.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@item Methods
+@deffn {Method} {variance} ((r-geometric0 @ref{❨89❩, , @t{r-geometric}}))
+@anchor{❨73❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-binomial0 @ref{❨48❩, , @t{r-binomial}}))
+@anchor{❨74❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-bernoulli0 @ref{❨94❩, , @t{r-bernoulli}}))
+@anchor{❨75❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-rayleigh0 @ref{❨199❩, , @t{r-rayleigh}}))
+@anchor{❨76❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-beta0 @ref{❨186❩, , @t{r-beta}}))
+@anchor{❨77❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-inverse-gamma0 @ref{❨130❩, , @t{r-inverse-gamma}}))
+@anchor{❨78❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-gamma0 @ref{❨58❩, , @t{r-gamma}}))
+@anchor{❨79❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-t0 @ref{❨97❩, , @t{r-t}}))
+@anchor{❨80❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((left-truncated-normal0 @ref{❨333❩, , @t{left-truncated-normal}}))
+@anchor{❨81❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-log-normal0 @ref{❨54❩, , @t{r-log-normal}}))
+@anchor{❨82❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-normal0 @ref{❨207❩, , @t{r-normal}}))
+@anchor{❨83❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-exponential0 @ref{❨140❩, , @t{r-exponential}}))
+@anchor{❨84❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((r-uniform0 @ref{❨102❩, , @t{r-uniform}}))
+@anchor{❨85❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {variance} ((instance @ref{❨36❩, , @t{r-discrete}}))
+@anchor{❨86❩}@c
+@methodsubindex{variance}@c
+@table @strong
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+
+@node Public standalone methods, Public structures, Public generic functions, Public Interface
+@subsection Standalone methods
+@deffn {Method} {initialize-instance} :after ((rng @ref{❨213❩, , @t{generator}}) &key seed &allow-other-keys)
+@anchor{❨425❩}@c
+@methodsubindex{initialize-instance}@c
+@table @strong
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {initialize-instance} :after ((self @ref{❨281❩, , @t{simple-multiplicative-congruential}}) &key &allow-other-keys)
+@anchor{❨426❩}@c
+@methodsubindex{initialize-instance}@c
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {num=} ((a1 @ref{❨130❩, , @t{r-inverse-gamma}}) (b2 @ref{❨130❩, , @t{r-inverse-gamma}}) &optional tolerance3)
+@anchor{❨422❩}@c
+@methodsubindex{num=}@c
+@table @strong
+@item Package
+@t{num-utils.num=}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+
+@node Public structures, Public classes, Public standalone methods, Public Interface
+@subsection Structures
+@deftp {Structure} {r-bernoulli}
+@anchor{❨94❩}@c
+@structuresubindex{r-bernoulli}@c
+Bernoulli(pr) distribution@comma{} with probability PR for success and 1-PR
+for failure.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨62❩, , @t{cdf}}.
+@item
+@ref{❨145❩, , @t{draw}}.
+@item
+@ref{❨166❩, , @t{mean}}.
+@item
+@ref{❨330❩, , @t{pr}}.
+@item
+@ref{❨75❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {pr}
+@anchor{❨95❩}@c
+@slotsubindex{pr}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨263❩, , @t{r-bernoulli-pr}}.
+@item Writers
+@ref{❨264❩, , @t{(setf r-bernoulli-pr)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-beta}
+@anchor{❨186❩}@c
+@structuresubindex{r-beta}@c
+Beta(alpha@comma{}beta) distribution@comma{} with density proportional to x^(alpha-1)*(1-x)^(beta-1).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨107❩, , @t{alpha}}.
+@item
+@ref{❨123❩, , @t{beta}}.
+@item
+@ref{❨147❩, , @t{draw}}.
+@item
+@ref{❨168❩, , @t{mean}}.
+@item
+@ref{❨190❩, , @t{quantile}}.
+@item
+@ref{❨77❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {alpha}
+@anchor{❨187❩}@c
+@slotsubindex{alpha}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨353❩, , @t{r-beta-alpha}}.
+@item Writers
+@ref{❨354❩, , @t{(setf r-beta-alpha)}}.
+@end table
+@end defvr
+@defvr {Slot} {beta}
+@anchor{❨188❩}@c
+@slotsubindex{beta}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨232❩, , @t{r-beta-beta}}.
+@item Writers
+@ref{❨233❩, , @t{(setf r-beta-beta)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-binomial}
+@anchor{❨48❩}@c
+@structuresubindex{r-binomial}@c
+Binomial(pr@comma{}n) distribution@comma{} with N Bernoulli trials with probability PR for success.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨144❩, , @t{draw}}.
+@item
+@ref{❨165❩, , @t{mean}}.
+@item
+@ref{❨373❩, , @t{n}}.
+@item
+@ref{❨329❩, , @t{pr}}.
+@item
+@ref{❨74❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {pr}
+@anchor{❨49❩}@c
+@slotsubindex{pr}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨370❩, , @t{r-binomial-pr}}.
+@item Writers
+@ref{❨371❩, , @t{(setf r-binomial-pr)}}.
+@end table
+@end defvr
+@defvr {Slot} {n}
+@anchor{❨50❩}@c
+@slotsubindex{n}@c
+@table @strong
+@item Type
+@t{integer}
+@item Readers
+@ref{❨227❩, , @t{r-binomial-n}}.
+@item Writers
+@ref{❨228❩, , @t{(setf r-binomial-n)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-discrete}
+@anchor{❨36❩}@c
+@structuresubindex{r-discrete}@c
+Discrete probabilities.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨70❩, , @t{cdf}}.
+@item
+@ref{❨156❩, , @t{draw}}.
+@item
+@ref{❨118❩, , @t{log-pdf}}.
+@item
+@ref{❨177❩, , @t{mean}}.
+@item
+@ref{❨159❩, , @t{probabilities}}.
+@item
+@ref{❨86❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {probabilities}
+@anchor{❨37❩}@c
+@slotsubindex{probabilities}@c
+@table @strong
+@item Type
+@t{distributions.internals:float-vector}
+@item Readers
+@ref{❨276❩, , @t{r-discrete-probabilities}}.
+@item Writers
+@ref{❨277❩, , @t{(setf r-discrete-probabilities)}}.
+@end table
+@end defvr
+@defvr {Slot} {prob}
+@anchor{❨38❩}@c
+@slotsubindex{prob}@c
+@table @strong
+@item Type
+@t{distributions.internals:float-vector}
+@item Readers
+@ref{❨239❩, , @t{r-discrete-prob}}.
+@item Writers
+@ref{❨240❩, , @t{(setf r-discrete-prob)}}.
+@end table
+@end defvr
+@defvr {Slot} {alias}
+@anchor{❨39❩}@c
+@slotsubindex{alias}@c
+@table @strong
+@item Type
+@t{(simple-array fixnum (*))}
+@item Readers
+@ref{❨266❩, , @t{r-discrete-alias}}.
+@item Writers
+@ref{❨267❩, , @t{(setf r-discrete-alias)}}.
+@end table
+@end defvr
+@defvr {Slot} {n-float}
+@anchor{❨40❩}@c
+@slotsubindex{n-float}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨251❩, , @t{r-discrete-n-float}}.
+@item Writers
+@ref{❨252❩, , @t{(setf r-discrete-n-float)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-exponential}
+@anchor{❨140❩}@c
+@structuresubindex{r-exponential}@c
+Exponential(rate) distribution@comma{} with density rate*exp(-rate*x) for x>=0 and 0 for x<0. rate > 0.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨68❩, , @t{cdf}}.
+@item
+@ref{❨154❩, , @t{draw}}.
+@item
+@ref{❨116❩, , @t{log-pdf}}.
+@item
+@ref{❨175❩, , @t{mean}}.
+@item
+@ref{❨195❩, , @t{quantile}}.
+@item
+@ref{❨42❩, , @t{rate}}.
+@item
+@ref{❨84❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {rate}
+@anchor{❨141❩}@c
+@slotsubindex{rate}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨268❩, , @t{r-exponential-rate}}.
+@item Writers
+@ref{❨269❩, , @t{(setf r-exponential-rate)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-gamma}
+@anchor{❨58❩}@c
+@structuresubindex{r-gamma}@c
+Gamma(alpha@comma{}beta) distribution@comma{} with density proportional to x^(alpha-1) exp(-x*beta).  Alpha and beta are known as shape and inverse scale (or rate) parameters@comma{} respectively.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨109❩, , @t{alpha}}.
+@item
+@ref{❨125❩, , @t{beta}}.
+@item
+@ref{❨64❩, , @t{cdf}}.
+@item
+@ref{❨149❩, , @t{draw}}.
+@item
+@ref{❨112❩, , @t{log-pdf}}.
+@item
+@ref{❨170❩, , @t{mean}}.
+@item
+@ref{❨45❩, , @t{nu}}.
+@item
+@ref{❨191❩, , @t{quantile}}.
+@item
+@ref{❨79❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {alpha}
+@anchor{❨59❩}@c
+@slotsubindex{alpha}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨302❩, , @t{r-gamma-alpha}}.
+@item Writers
+@ref{❨303❩, , @t{(setf r-gamma-alpha)}}.
+@end table
+@end defvr
+@defvr {Slot} {beta}
+@anchor{❨60❩}@c
+@slotsubindex{beta}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨347❩, , @t{r-gamma-beta}}.
+@item Writers
+@ref{❨348❩, , @t{(setf r-gamma-beta)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-geometric}
+@anchor{❨89❩}@c
+@structuresubindex{r-geometric}@c
+Geometric(pr) distribution.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨143❩, , @t{draw}}.
+@item
+@ref{❨164❩, , @t{mean}}.
+@item
+@ref{❨328❩, , @t{pr}}.
+@item
+@ref{❨73❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {pr}
+@anchor{❨90❩}@c
+@slotsubindex{pr}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨360❩, , @t{r-geometric-pr}}.
+@item Writers
+@ref{❨361❩, , @t{(setf r-geometric-pr)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-inverse-gamma}
+@anchor{❨130❩}@c
+@structuresubindex{r-inverse-gamma}@c
+Inverse-Gamma(alpha@comma{}beta) distribution@comma{} with density p(x)
+ proportional to x^(-alpha+1) exp(-beta/x)
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨108❩, , @t{alpha}}.
+@item
+@ref{❨124❩, , @t{beta}}.
+@item
+@ref{❨148❩, , @t{draw}}.
+@item
+@ref{❨111❩, , @t{log-pdf}}.
+@item
+@ref{❨169❩, , @t{mean}}.
+@item
+@ref{❨44❩, , @t{nu}}.
+@item
+@ref{❨422❩, , @t{num=}}.
+@item
+@ref{❨314❩, , @t{s^2}}.
+@item
+@ref{❨78❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {alpha}
+@anchor{❨131❩}@c
+@slotsubindex{alpha}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨319❩, , @t{r-inverse-gamma-alpha}}.
+@item Writers
+@ref{❨320❩, , @t{(setf r-inverse-gamma-alpha)}}.
+@end table
+@end defvr
+@defvr {Slot} {beta}
+@anchor{❨132❩}@c
+@slotsubindex{beta}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨393❩, , @t{r-inverse-gamma-beta}}.
+@item Writers
+@ref{❨394❩, , @t{(setf r-inverse-gamma-beta)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-log-normal}
+@anchor{❨54❩}@c
+@structuresubindex{r-log-normal}@c
+Log-normal distribution with location log-mean and scale log-sd.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨66❩, , @t{cdf}}.
+@item
+@ref{❨152❩, , @t{draw}}.
+@item
+@ref{❨114❩, , @t{log-pdf}}.
+@item
+@ref{❨173❩, , @t{mean}}.
+@item
+@ref{❨193❩, , @t{quantile}}.
+@item
+@ref{❨82❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {log-mean}
+@anchor{❨55❩}@c
+@slotsubindex{log-mean}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨357❩, , @t{r-log-normal-log-mean}}.
+@item Writers
+@ref{❨358❩, , @t{(setf r-log-normal-log-mean)}}.
+@end table
+@end defvr
+@defvr {Slot} {log-sd}
+@anchor{❨56❩}@c
+@slotsubindex{log-sd}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨299❩, , @t{r-log-normal-log-sd}}.
+@item Writers
+@ref{❨300❩, , @t{(setf r-log-normal-log-sd)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-normal}
+@anchor{❨207❩}@c
+@structuresubindex{r-normal}@c
+Normal(mean@comma{}variance) distribution.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨67❩, , @t{cdf}}.
+@item
+@ref{❨153❩, , @t{draw}}.
+@item
+@ref{❨115❩, , @t{log-pdf}}.
+@item
+@ref{❨174❩, , @t{mean}}.
+@item
+@ref{❨194❩, , @t{quantile}}.
+@item
+@ref{❨312❩, , @t{sd}}.
+@item
+@ref{❨83❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {mean}
+@anchor{❨208❩}@c
+@slotsubindex{mean}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨241❩, , @t{r-normal-mean}}.
+@item Writers
+@ref{❨242❩, , @t{(setf r-normal-mean)}}.
+@end table
+@end defvr
+@defvr {Slot} {sd}
+@anchor{❨209❩}@c
+@slotsubindex{sd}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨293❩, , @t{r-normal-sd}}.
+@item Writers
+@ref{❨294❩, , @t{(setf r-normal-sd)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-rayleigh}
+@anchor{❨199❩}@c
+@structuresubindex{r-rayleigh}@c
+Rayleigh(scale) distribution with scale > 0 and density x * exp(-x^2 / (2 scale^2)) / scale^2 for x>=0 and 0 for x<0.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨63❩, , @t{cdf}}.
+@item
+@ref{❨146❩, , @t{draw}}.
+@item
+@ref{❨167❩, , @t{mean}}.
+@item
+@ref{❨183❩, , @t{scale}}.
+@item
+@ref{❨76❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {scale}
+@anchor{❨200❩}@c
+@slotsubindex{scale}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨365❩, , @t{r-rayleigh-scale}}.
+@item Writers
+@ref{❨366❩, , @t{(setf r-rayleigh-scale)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-t}
+@anchor{❨97❩}@c
+@structuresubindex{r-t}@c
+T(mean@comma{}scale@comma{}nu) random variate.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨150❩, , @t{draw}}.
+@item
+@ref{❨171❩, , @t{mean}}.
+@item
+@ref{❨46❩, , @t{nu}}.
+@item
+@ref{❨184❩, , @t{scale}}.
+@item
+@ref{❨80❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {mean}
+@anchor{❨98❩}@c
+@slotsubindex{mean}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨351❩, , @t{r-t-mean}}.
+@item Writers
+@ref{❨352❩, , @t{(setf r-t-mean)}}.
+@end table
+@end defvr
+@defvr {Slot} {scale}
+@anchor{❨99❩}@c
+@slotsubindex{scale}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨317❩, , @t{r-t-scale}}.
+@item Writers
+@ref{❨318❩, , @t{(setf r-t-scale)}}.
+@end table
+@end defvr
+@defvr {Slot} {nu}
+@anchor{❨100❩}@c
+@slotsubindex{nu}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨395❩, , @t{r-t-nu}}.
+@item Writers
+@ref{❨396❩, , @t{(setf r-t-nu)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-uniform}
+@anchor{❨102❩}@c
+@structuresubindex{r-uniform}@c
+Uniform(left@comma{}right) distribution.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨69❩, , @t{cdf}}.
+@item
+@ref{❨155❩, , @t{draw}}.
+@item
+@ref{❨120❩, , @t{left}}.
+@item
+@ref{❨117❩, , @t{log-pdf}}.
+@item
+@ref{❨176❩, , @t{mean}}.
+@item
+@ref{❨196❩, , @t{quantile}}.
+@item
+@ref{❨179❩, , @t{right}}.
+@item
+@ref{❨85❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {left}
+@anchor{❨103❩}@c
+@slotsubindex{left}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨399❩, , @t{r-uniform-left}}.
+@item Writers
+@ref{❨400❩, , @t{(setf r-uniform-left)}}.
+@end table
+@end defvr
+@defvr {Slot} {right}
+@anchor{❨104❩}@c
+@slotsubindex{right}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨362❩, , @t{r-uniform-right}}.
+@item Writers
+@ref{❨363❩, , @t{(setf r-uniform-right)}}.
+@end table
+@end defvr
+@defvr {Slot} {width}
+@anchor{❨105❩}@c
+@slotsubindex{width}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨289❩, , @t{r-uniform-width}}.
+@item Writers
+@ref{❨290❩, , @t{(setf r-uniform-width)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+
+@node Public classes, Public types, Public structures, Public Interface
+@subsection Classes
+@deftp {Class} {borosh13}
+@anchor{❨126❩}@c
+@classsubindex{borosh13}@c
+Donald E. Knuth's Borosh-Niederreiter@comma{} The Art of Computer Programming@comma{}
+  Volume 2@comma{} Third Edition@comma{} Addison-Wesley@comma{} pp 106-108.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Direct superclasses
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}.
+@item Direct slots
+@defvr {Slot} {a}
+@anchor{❨127❩}@c
+@slotsubindex{a}@c
+@table @strong
+@item Initform
+@t{1812433253}
+@end table
+@end defvr
+@defvr {Slot} {chunk-length}
+@anchor{❨128❩}@c
+@slotsubindex{chunk-length}@c
+@table @strong
+@item Initform
+@t{32}
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Class} {generator}
+@anchor{❨213❩}@c
+@classsubindex{generator}@c
+Base class for random number generators.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@item Direct subclasses
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨275❩, , @t{chunk-length}}.
+@item
+@ref{❨322❩, , @t{copy-state}}.
+@item
+@ref{❨272❩, , @t{default-seed}}.
+@item
+@ref{❨246❩, , @t{generate-state}}.
+@item
+@ref{❨425❩, , @t{initialize-instance}}.
+@item
+@ref{❨237❩, , @t{(setf state)}}.
+@item
+@ref{❨235❩, , @t{state}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {state}
+@anchor{❨214❩}@c
+@slotsubindex{state}@c
+All information needed by the generator to create the next chunk of random bits.  This state is modified after each call to NEXT-CHUNK.
+@table @strong
+@item Initargs
+@t{:state}
+@item Readers
+@ref{❨235❩, , @t{state}}.
+@item Writers
+@ref{❨237❩, , @t{(setf state)}}.
+@end table
+@end defvr
+@defvr {Slot} {min}
+@anchor{❨215❩}@c
+@slotsubindex{min}@c
+The minimum value return by NEXT-CHUNK.
+@table @strong
+@item Package
+@t{common-lisp}.
+@item Initargs
+@t{:min}
+@end table
+@end defvr
+@defvr {Slot} {max}
+@anchor{❨216❩}@c
+@slotsubindex{max}@c
+The maximum value return by NEXT-CHUNK.
+@table @strong
+@item Package
+@t{common-lisp}.
+@item Initargs
+@t{:max}
+@end table
+@end defvr
+@defvr {Slot} {chunk-length}
+@anchor{❨217❩}@c
+@slotsubindex{chunk-length}@c
+The length in bits of the integer returned by NEXT-CHUNK.
+@table @strong
+@item Readers
+@ref{❨275❩, , @t{chunk-length}}.
+@item Writers
+@i{This slot is read-only.}
+@end table
+@end defvr
+@defvr {Slot} {default-seed}
+@anchor{❨218❩}@c
+@slotsubindex{default-seed}@c
+The seed used by default@comma{} when the seed is NIL.
+@table @strong
+@item Initform
+@t{0}
+@item Readers
+@ref{❨272❩, , @t{default-seed}}.
+@item Writers
+@i{This slot is read-only.}
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Class} {randu}
+@anchor{❨201❩}@c
+@classsubindex{randu}@c
+The poor IBM randu generator. Park and Miller@comma{} Random Number@*
+   Generators: Good ones are hard to find@comma{} Communications of the ACM@comma{} October 1988@comma{} Volume
+   31@comma{} No 10@comma{} pp 1192-1201.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Direct superclasses
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}.
+@item Direct slots
+@defvr {Slot} {a}
+@anchor{❨202❩}@c
+@slotsubindex{a}@c
+@table @strong
+@item Initform
+@t{65539}
+@end table
+@end defvr
+@defvr {Slot} {chunk-length}
+@anchor{❨203❩}@c
+@slotsubindex{chunk-length}@c
+@table @strong
+@item Initform
+@t{31}
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Class} {transputer}
+@anchor{❨136❩}@c
+@classsubindex{transputer}@c
+INMOS Transputer Development System generator.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Direct superclasses
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}.
+@item Direct slots
+@defvr {Slot} {a}
+@anchor{❨137❩}@c
+@slotsubindex{a}@c
+@table @strong
+@item Initform
+@t{1664525}
+@end table
+@end defvr
+@defvr {Slot} {chunk-length}
+@anchor{❨138❩}@c
+@slotsubindex{chunk-length}@c
+@table @strong
+@item Initform
+@t{32}
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Class} {waterman14}
+@anchor{❨221❩}@c
+@classsubindex{waterman14}@c
+Donald E. Knuth's Waterman@comma{} The Art of Computer Programming@comma{} Volume 2@comma{}
+  Third Edition@comma{} Addison-Wesley@comma{} pp 106-108.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Direct superclasses
+@ref{❨281❩, , @t{simple-multiplicative-congruential}}.
+@item Direct slots
+@defvr {Slot} {a}
+@anchor{❨222❩}@c
+@slotsubindex{a}@c
+@table @strong
+@item Initform
+@t{1566083941}
+@end table
+@end defvr
+@defvr {Slot} {chunk-length}
+@anchor{❨223❩}@c
+@slotsubindex{chunk-length}@c
+@table @strong
+@item Initform
+@t{32}
+@end table
+@end defvr
+@end table
+@end deftp
+
+@node Public types, , Public classes, Public Interface
+@subsection Types
+@deftp {Type} {float-vector} (&optional n)
+@anchor{❨26❩}@c
+@typesubindex{float-vector}@c
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deftp
+@deftp {Type} {internal-float} (&optional lower-limit upper-limit)
+@anchor{❨28❩}@c
+@typesubindex{internal-float}@c
+Type used for internal representation of floats in the DISTRIBUTIONS library.
+@table @strong
+@item Package
+@ref{❨24❩, , @t{distributions.internals}}.
+@item Source
+@ref{❨4❩, , @t{internals.lisp}}.
+@end table
+@end deftp
+
+
+@c ---------
+@c Internals
+@c ---------
+@node Internals, , Public Interface, Definitions
+@section Internals
+@menu
+* Private constants::
+* Private special variables::
+* Private macros::
+* Private ordinary functions::
+* Private generic functions::
+* Private structures::
+* Private classes::
+@end menu
+
+@node Private constants, Private special variables, Internals, Internals
+@subsection Constants
+@defvr {Constant} {+normal-log-pdf-constant+}
+@anchor{❨367❩}@c
+@constantsubindex{+normal-log-pdf-constant+}@c
+Normalizing constant for a standard normal PDF.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end defvr
+
+@node Private special variables, Private macros, Private constants, Internals
+@subsection Special variables
+@defvr {Special Variable} {*default-generator-type*}
+@anchor{❨391❩}@c
+@specialsubindex{*default-generator-type*}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end defvr
+
+@node Private macros, Private ordinary functions, Private special variables, Internals
+@subsection Macros
+@deffn {Macro} {define-rv} (name constructor-lambda-list options slots constructor-form &rest methods)
+@anchor{❨359❩}@c
+@macrosubindex{define-rv}@c
+Define a random variable@comma{} abstracting from the representation.  Syntax:@*
+
+NAME is a symbol@comma{} and will name the class and the creation function.@*
+
+CONSTRUCTOR-LAMBDA-LIST will be used to wrap the CONSTRUCTOR-FORM@comma{} which can use the locally define macro (MAKE :slot-name value1 ...) to initialize slots.@*
+
+SLOTS is a list of (slot-name @ampchar{}key type read-only reader) slot specifications.  When READER is T@comma{} SLOT-NAME is used instead@comma{} otherwise a method is defined using the given symbol.@*
+
+OPTIONS is (@ampchar{}key documentation instance)@comma{} the default instance is a gensym.@*
+
+METHODS are (function-name lambda-list @ampchar{}body body)@comma{} with (INSTANCE NAME) prepended to the lambda-list@comma{} ie the instance is accessible using INSTANCE.  Also@comma{} within BODY@comma{} slots are accessible by their names.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@end table
+@end deffn
+
+@node Private ordinary functions, Private generic functions, Private macros, Internals
+@subsection Ordinary functions
+@deffn {Function} {%next-double-float} (limit rng)
+@anchor{❨253❩}@c
+@functionsubindex{%next-double-float}@c
+Handle the single or double float case of RANDOM. We generate a float in [0d0@comma{} 1d0) by
+clobbering the mantissa of 1d0 with random bits (52 bits); this yields a number in [1d0@comma{}
+2d0). Then 1d0 is subtracted.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {%next-integer} (limit rng)
+@anchor{❨402❩}@c
+@functionsubindex{%next-integer}@c
+Generates an integer greater than or equal to zero and less than LIMIT. Successive
+chunks are concatenated without overlap to construct integers larger than a single
+chunk. The return value has this property: If two integers are generated from the same RNG
+with LIMIT equal to 2^m and 2^n@comma{} respectively@comma{} then bit k is the same in both integers for
+0 <= k < min(m@comma{}n). Each call to %NEXT-INTEGER consumes at least one chunk; bits left over
+from previous chunks are not re-used.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {%next-single-float} (limit rng)
+@anchor{❨356❩}@c
+@functionsubindex{%next-single-float}@c
+Handle the single or double float case of RANDOM. We generate a float in [0f0@comma{} 1f0) by
+clobbering the mantissa of 1f0 with random bits (23 bits); this yields a number in [1f0@comma{}
+2f0). Then 1f0 is subtracted.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {cdf-gamma%} (x shape &key rate scale upper-tail log)
+@anchor{❨324❩}@c
+@functionsubindex{cdf-gamma%}@c
+CDF of Gamma with parameterisation like that of R pgamma
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {cdf-gamma%+} (x k θ)
+@anchor{❨301❩}@c
+@functionsubindex{cdf-gamma%+}@c
+Return the cumulative gamma distribution function@comma{} shape k>0@comma{} scale θ>0
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {cdf-normal%} (x mu sigma)
+@anchor{❨355❩}@c
+@functionsubindex{cdf-normal%}@c
+Internal function for normal CDF.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {check-probability} (p &optional open)
+@anchor{❨326❩}@c
+@functionsubindex{check-probability}@c
+Assert that P is a probability (ie a real number between 0 and 1).  When OPEN is given@comma{} it is checked that p is not 0 (:LEFT)@comma{} 1 (:RIGHT)@comma{} or 0/1 (:BOTH).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨7❩, , @t{defs.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-left-truncated-normal} (instance)
+@anchor{❨388❩}@c
+@functionsubindex{copy-left-truncated-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-bernoulli} (instance)
+@anchor{❨226❩}@c
+@functionsubindex{copy-r-bernoulli}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-beta} (instance)
+@anchor{❨256❩}@c
+@functionsubindex{copy-r-beta}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-binomial} (instance)
+@anchor{❨305❩}@c
+@functionsubindex{copy-r-binomial}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-discrete} (instance)
+@anchor{❨229❩}@c
+@functionsubindex{copy-r-discrete}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-exponential} (instance)
+@anchor{❨238❩}@c
+@functionsubindex{copy-r-exponential}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-gamma} (instance)
+@anchor{❨291❩}@c
+@functionsubindex{copy-r-gamma}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-geometric} (instance)
+@anchor{❨397❩}@c
+@functionsubindex{copy-r-geometric}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-inverse-gamma} (instance)
+@anchor{❨380❩}@c
+@functionsubindex{copy-r-inverse-gamma}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-log-normal} (instance)
+@anchor{❨383❩}@c
+@functionsubindex{copy-r-log-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-normal} (instance)
+@anchor{❨316❩}@c
+@functionsubindex{copy-r-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-rayleigh} (instance)
+@anchor{❨344❩}@c
+@functionsubindex{copy-r-rayleigh}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-t} (instance)
+@anchor{❨280❩}@c
+@functionsubindex{copy-r-t}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-uniform} (instance)
+@anchor{❨259❩}@c
+@functionsubindex{copy-r-uniform}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {copy-r-univariate} (instance)
+@anchor{❨340❩}@c
+@functionsubindex{copy-r-univariate}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-bernoulli-bit} (p &key rng)
+@anchor{❨343❩}@c
+@functionsubindex{draw-bernoulli-bit}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-left-truncated-standard-normal} (left alpha &key rng)
+@anchor{❨398❩}@c
+@functionsubindex{draw-left-truncated-standard-normal}@c
+Draw a left truncated standard normal@comma{} using an Exp(alpha@comma{}left) distribution.  LEFT is the standardized boundary@comma{} ALPHA should be calculated with TRUNCATED-NORMAL-OPTIMAL-ALPHA.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {draw-standard-gamma1} (alpha d c &key rng)
+@anchor{❨297❩}@c
+@functionsubindex{draw-standard-gamma1}@c
+Return a standard gamma variate (beta=1) with shape parameter alpha
+>= 1.  See Marsaglia and Tsang (2004).  You should precalculate d
+and c using the utility function above. 
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {generate-seed} ()
+@anchor{❨309❩}@c
+@functionsubindex{generate-seed}@c
+Return a 64-bit random seed@comma{} based on current time.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {left-truncated-normal} (mu sigma left)
+@anchor{❨332❩}@c
+@functionsubindex{left-truncated-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {left-truncated-normal-alpha} (instance)
+@anchor{❨386❩}@c
+@functionsubindex{left-truncated-normal-alpha}@c
+@deffnx {Writer} {(setf left-truncated-normal-alpha)} (instance)
+@anchor{❨387❩}@c
+@functionsubindex{(setf left-truncated-normal-alpha)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Target Slot
+@ref{❨339❩, , @t{alpha}}.
+@end table
+@end deffn
+@deffn {Reader} {left-truncated-normal-left} (instance)
+@anchor{❨261❩}@c
+@functionsubindex{left-truncated-normal-left}@c
+@deffnx {Writer} {(setf left-truncated-normal-left)} (instance)
+@anchor{❨262❩}@c
+@functionsubindex{(setf left-truncated-normal-left)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Target Slot
+@ref{❨336❩, , @t{left}}.
+@end table
+@end deffn
+@deffn {Reader} {left-truncated-normal-left-standardized} (instance)
+@anchor{❨248❩}@c
+@functionsubindex{left-truncated-normal-left-standardized}@c
+@deffnx {Writer} {(setf left-truncated-normal-left-standardized)} (instance)
+@anchor{❨249❩}@c
+@functionsubindex{(setf left-truncated-normal-left-standardized)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Target Slot
+@ref{❨337❩, , @t{left-standardized}}.
+@end table
+@end deffn
+@deffn {Reader} {left-truncated-normal-m0} (instance)
+@anchor{❨345❩}@c
+@functionsubindex{left-truncated-normal-m0}@c
+@deffnx {Writer} {(setf left-truncated-normal-m0)} (instance)
+@anchor{❨346❩}@c
+@functionsubindex{(setf left-truncated-normal-m0)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Target Slot
+@ref{❨338❩, , @t{m0}}.
+@end table
+@end deffn
+@deffn {Reader} {left-truncated-normal-mu} (instance)
+@anchor{❨287❩}@c
+@functionsubindex{left-truncated-normal-mu}@c
+@deffnx {Writer} {(setf left-truncated-normal-mu)} (instance)
+@anchor{❨288❩}@c
+@functionsubindex{(setf left-truncated-normal-mu)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Target Slot
+@ref{❨334❩, , @t{mu}}.
+@end table
+@end deffn
+@deffn {Function} {left-truncated-normal-p} (object)
+@anchor{❨379❩}@c
+@functionsubindex{left-truncated-normal-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {left-truncated-normal-sigma} (instance)
+@anchor{❨381❩}@c
+@functionsubindex{left-truncated-normal-sigma}@c
+@deffnx {Writer} {(setf left-truncated-normal-sigma)} (instance)
+@anchor{❨382❩}@c
+@functionsubindex{(setf left-truncated-normal-sigma)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Target Slot
+@ref{❨335❩, , @t{sigma}}.
+@end table
+@end deffn
+@deffn {Function} {make-left-truncated-normal} (&key mu sigma left left-standardized m0 alpha)
+@anchor{❨250❩}@c
+@functionsubindex{make-left-truncated-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-bernoulli} (&key pr)
+@anchor{❨298❩}@c
+@functionsubindex{make-r-bernoulli}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-beta} (&key alpha beta)
+@anchor{❨270❩}@c
+@functionsubindex{make-r-beta}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-binomial} (&key pr n)
+@anchor{❨257❩}@c
+@functionsubindex{make-r-binomial}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-discrete} (&key probabilities prob alias n-float)
+@anchor{❨390❩}@c
+@functionsubindex{make-r-discrete}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-exponential} (&key rate)
+@anchor{❨306❩}@c
+@functionsubindex{make-r-exponential}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-gamma} (&key alpha beta)
+@anchor{❨260❩}@c
+@functionsubindex{make-r-gamma}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-geometric} (&key pr)
+@anchor{❨225❩}@c
+@functionsubindex{make-r-geometric}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-inverse-gamma} (&key alpha beta)
+@anchor{❨389❩}@c
+@functionsubindex{make-r-inverse-gamma}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-log-normal} (&key log-mean log-sd)
+@anchor{❨378❩}@c
+@functionsubindex{make-r-log-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-normal} (&key mean sd)
+@anchor{❨392❩}@c
+@functionsubindex{make-r-normal}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-rayleigh} (&key scale)
+@anchor{❨278❩}@c
+@functionsubindex{make-r-rayleigh}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-t} (&key mean scale nu)
+@anchor{❨273❩}@c
+@functionsubindex{make-r-t}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-uniform} (&key left right width)
+@anchor{❨286❩}@c
+@functionsubindex{make-r-uniform}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {make-r-univariate} (&key)
+@anchor{❨401❩}@c
+@functionsubindex{make-r-univariate}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {pdf-gamma} (x a b)
+@anchor{❨285❩}@c
+@functionsubindex{pdf-gamma}@c
+Return the probability density function of a gamma distribution with shape a>0@comma{} scale b>0
+Returns: x^(a-1)*exp(-x/b)/gamma(a)/b^a@comma{} x>0
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {pdf-gamma%} (x shape scale)
+@anchor{❨364❩}@c
+@functionsubindex{pdf-gamma%}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {pdf-gamma*} (x shape scale)
+@anchor{❨325❩}@c
+@functionsubindex{pdf-gamma*}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {pdf-gamma+} (x k θ)
+@anchor{❨247❩}@c
+@functionsubindex{pdf-gamma+}@c
+Return the probability density function where:
+@*
+K is the shape of the distribution@*
+θ (theta) is the scale@*
+X is the random variate
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {pdf-normal%} (x &key mu sigma)
+@anchor{❨304❩}@c
+@functionsubindex{pdf-normal%}@c
+Direct calculation of the Probability Density of the normal distribution.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {quantile-normal%} (q mu sigma)
+@anchor{❨295❩}@c
+@functionsubindex{quantile-normal%}@c
+Internal function for normal quantile.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-bernoulli-p} (object)
+@anchor{❨296❩}@c
+@functionsubindex{r-bernoulli-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-bernoulli-pr} (instance)
+@anchor{❨263❩}@c
+@functionsubindex{r-bernoulli-pr}@c
+@deffnx {Writer} {(setf r-bernoulli-pr)} (instance)
+@anchor{❨264❩}@c
+@functionsubindex{(setf r-bernoulli-pr)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@item Target Slot
+@ref{❨95❩, , @t{pr}}.
+@end table
+@end deffn
+@deffn {Reader} {r-beta-alpha} (instance)
+@anchor{❨353❩}@c
+@functionsubindex{r-beta-alpha}@c
+@deffnx {Writer} {(setf r-beta-alpha)} (instance)
+@anchor{❨354❩}@c
+@functionsubindex{(setf r-beta-alpha)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@item Target Slot
+@ref{❨187❩, , @t{alpha}}.
+@end table
+@end deffn
+@deffn {Reader} {r-beta-beta} (instance)
+@anchor{❨232❩}@c
+@functionsubindex{r-beta-beta}@c
+@deffnx {Writer} {(setf r-beta-beta)} (instance)
+@anchor{❨233❩}@c
+@functionsubindex{(setf r-beta-beta)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@item Target Slot
+@ref{❨188❩, , @t{beta}}.
+@end table
+@end deffn
+@deffn {Function} {r-beta-p} (object)
+@anchor{❨265❩}@c
+@functionsubindex{r-beta-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨18❩, , @t{beta.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-binomial-n} (instance)
+@anchor{❨227❩}@c
+@functionsubindex{r-binomial-n}@c
+@deffnx {Writer} {(setf r-binomial-n)} (instance)
+@anchor{❨228❩}@c
+@functionsubindex{(setf r-binomial-n)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@item Target Slot
+@ref{❨50❩, , @t{n}}.
+@end table
+@end deffn
+@deffn {Function} {r-binomial-p} (object)
+@anchor{❨341❩}@c
+@functionsubindex{r-binomial-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-binomial-pr} (instance)
+@anchor{❨370❩}@c
+@functionsubindex{r-binomial-pr}@c
+@deffnx {Writer} {(setf r-binomial-pr)} (instance)
+@anchor{❨371❩}@c
+@functionsubindex{(setf r-binomial-pr)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@item Target Slot
+@ref{❨49❩, , @t{pr}}.
+@end table
+@end deffn
+@deffn {Reader} {r-discrete-alias} (instance)
+@anchor{❨266❩}@c
+@functionsubindex{r-discrete-alias}@c
+@deffnx {Writer} {(setf r-discrete-alias)} (instance)
+@anchor{❨267❩}@c
+@functionsubindex{(setf r-discrete-alias)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@item Target Slot
+@ref{❨39❩, , @t{alias}}.
+@end table
+@end deffn
+@deffn {Reader} {r-discrete-n-float} (instance)
+@anchor{❨251❩}@c
+@functionsubindex{r-discrete-n-float}@c
+@deffnx {Writer} {(setf r-discrete-n-float)} (instance)
+@anchor{❨252❩}@c
+@functionsubindex{(setf r-discrete-n-float)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@item Target Slot
+@ref{❨40❩, , @t{n-float}}.
+@end table
+@end deffn
+@deffn {Function} {r-discrete-p} (object)
+@anchor{❨349❩}@c
+@functionsubindex{r-discrete-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-discrete-prob} (instance)
+@anchor{❨239❩}@c
+@functionsubindex{r-discrete-prob}@c
+@deffnx {Writer} {(setf r-discrete-prob)} (instance)
+@anchor{❨240❩}@c
+@functionsubindex{(setf r-discrete-prob)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@item Target Slot
+@ref{❨38❩, , @t{prob}}.
+@end table
+@end deffn
+@deffn {Reader} {r-discrete-probabilities} (instance)
+@anchor{❨276❩}@c
+@functionsubindex{r-discrete-probabilities}@c
+@deffnx {Writer} {(setf r-discrete-probabilities)} (instance)
+@anchor{❨277❩}@c
+@functionsubindex{(setf r-discrete-probabilities)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨9❩, , @t{discrete.lisp}}.
+@item Target Slot
+@ref{❨37❩, , @t{probabilities}}.
+@end table
+@end deffn
+@deffn {Function} {r-exponential-p} (object)
+@anchor{❨375❩}@c
+@functionsubindex{r-exponential-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-exponential-rate} (instance)
+@anchor{❨268❩}@c
+@functionsubindex{r-exponential-rate}@c
+@deffnx {Writer} {(setf r-exponential-rate)} (instance)
+@anchor{❨269❩}@c
+@functionsubindex{(setf r-exponential-rate)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨11❩, , @t{exponential.lisp}}.
+@item Target Slot
+@ref{❨141❩, , @t{rate}}.
+@end table
+@end deffn
+@deffn {Reader} {r-gamma-alpha} (instance)
+@anchor{❨302❩}@c
+@functionsubindex{r-gamma-alpha}@c
+@deffnx {Writer} {(setf r-gamma-alpha)} (instance)
+@anchor{❨303❩}@c
+@functionsubindex{(setf r-gamma-alpha)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@item Target Slot
+@ref{❨59❩, , @t{alpha}}.
+@end table
+@end deffn
+@deffn {Reader} {r-gamma-beta} (instance)
+@anchor{❨347❩}@c
+@functionsubindex{r-gamma-beta}@c
+@deffnx {Writer} {(setf r-gamma-beta)} (instance)
+@anchor{❨348❩}@c
+@functionsubindex{(setf r-gamma-beta)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@item Target Slot
+@ref{❨60❩, , @t{beta}}.
+@end table
+@end deffn
+@deffn {Function} {r-gamma-p} (object)
+@anchor{❨292❩}@c
+@functionsubindex{r-gamma-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {r-geometric-p} (object)
+@anchor{❨279❩}@c
+@functionsubindex{r-geometric-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-geometric-pr} (instance)
+@anchor{❨360❩}@c
+@functionsubindex{r-geometric-pr}@c
+@deffnx {Writer} {(setf r-geometric-pr)} (instance)
+@anchor{❨361❩}@c
+@functionsubindex{(setf r-geometric-pr)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@item Target Slot
+@ref{❨90❩, , @t{pr}}.
+@end table
+@end deffn
+@deffn {Reader} {r-inverse-gamma-alpha} (instance)
+@anchor{❨319❩}@c
+@functionsubindex{r-inverse-gamma-alpha}@c
+@deffnx {Writer} {(setf r-inverse-gamma-alpha)} (instance)
+@anchor{❨320❩}@c
+@functionsubindex{(setf r-inverse-gamma-alpha)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@item Target Slot
+@ref{❨131❩, , @t{alpha}}.
+@end table
+@end deffn
+@deffn {Reader} {r-inverse-gamma-beta} (instance)
+@anchor{❨393❩}@c
+@functionsubindex{r-inverse-gamma-beta}@c
+@deffnx {Writer} {(setf r-inverse-gamma-beta)} (instance)
+@anchor{❨394❩}@c
+@functionsubindex{(setf r-inverse-gamma-beta)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@item Target Slot
+@ref{❨132❩, , @t{beta}}.
+@end table
+@end deffn
+@deffn {Function} {r-inverse-gamma-p} (object)
+@anchor{❨331❩}@c
+@functionsubindex{r-inverse-gamma-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-log-normal-log-mean} (instance)
+@anchor{❨357❩}@c
+@functionsubindex{r-log-normal-log-mean}@c
+@deffnx {Writer} {(setf r-log-normal-log-mean)} (instance)
+@anchor{❨358❩}@c
+@functionsubindex{(setf r-log-normal-log-mean)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@item Target Slot
+@ref{❨55❩, , @t{log-mean}}.
+@end table
+@end deffn
+@deffn {Reader} {r-log-normal-log-sd} (instance)
+@anchor{❨299❩}@c
+@functionsubindex{r-log-normal-log-sd}@c
+@deffnx {Writer} {(setf r-log-normal-log-sd)} (instance)
+@anchor{❨300❩}@c
+@functionsubindex{(setf r-log-normal-log-sd)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@item Target Slot
+@ref{❨56❩, , @t{log-sd}}.
+@end table
+@end deffn
+@deffn {Function} {r-log-normal-p} (object)
+@anchor{❨350❩}@c
+@functionsubindex{r-log-normal-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨13❩, , @t{log-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-normal-mean} (instance)
+@anchor{❨241❩}@c
+@functionsubindex{r-normal-mean}@c
+@deffnx {Writer} {(setf r-normal-mean)} (instance)
+@anchor{❨242❩}@c
+@functionsubindex{(setf r-normal-mean)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@item Target Slot
+@ref{❨208❩, , @t{mean}}.
+@end table
+@end deffn
+@deffn {Function} {r-normal-p} (object)
+@anchor{❨258❩}@c
+@functionsubindex{r-normal-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-normal-sd} (instance)
+@anchor{❨293❩}@c
+@functionsubindex{r-normal-sd}@c
+@deffnx {Writer} {(setf r-normal-sd)} (instance)
+@anchor{❨294❩}@c
+@functionsubindex{(setf r-normal-sd)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@item Target Slot
+@ref{❨209❩, , @t{sd}}.
+@end table
+@end deffn
+@deffn {Function} {r-rayleigh-p} (object)
+@anchor{❨403❩}@c
+@functionsubindex{r-rayleigh-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-rayleigh-scale} (instance)
+@anchor{❨365❩}@c
+@functionsubindex{r-rayleigh-scale}@c
+@deffnx {Writer} {(setf r-rayleigh-scale)} (instance)
+@anchor{❨366❩}@c
+@functionsubindex{(setf r-rayleigh-scale)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨19❩, , @t{rayleigh.lisp}}.
+@item Target Slot
+@ref{❨200❩, , @t{scale}}.
+@end table
+@end deffn
+@deffn {Reader} {r-t-mean} (instance)
+@anchor{❨351❩}@c
+@functionsubindex{r-t-mean}@c
+@deffnx {Writer} {(setf r-t-mean)} (instance)
+@anchor{❨352❩}@c
+@functionsubindex{(setf r-t-mean)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@item Target Slot
+@ref{❨98❩, , @t{mean}}.
+@end table
+@end deffn
+@deffn {Reader} {r-t-nu} (instance)
+@anchor{❨395❩}@c
+@functionsubindex{r-t-nu}@c
+@deffnx {Writer} {(setf r-t-nu)} (instance)
+@anchor{❨396❩}@c
+@functionsubindex{(setf r-t-nu)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@item Target Slot
+@ref{❨100❩, , @t{nu}}.
+@end table
+@end deffn
+@deffn {Function} {r-t-p} (object)
+@anchor{❨230❩}@c
+@functionsubindex{r-t-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-t-scale} (instance)
+@anchor{❨317❩}@c
+@functionsubindex{r-t-scale}@c
+@deffnx {Writer} {(setf r-t-scale)} (instance)
+@anchor{❨318❩}@c
+@functionsubindex{(setf r-t-scale)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨15❩, , @t{t-distribution.lisp}}.
+@item Target Slot
+@ref{❨99❩, , @t{scale}}.
+@end table
+@end deffn
+@deffn {Reader} {r-uniform-left} (instance)
+@anchor{❨399❩}@c
+@functionsubindex{r-uniform-left}@c
+@deffnx {Writer} {(setf r-uniform-left)} (instance)
+@anchor{❨400❩}@c
+@functionsubindex{(setf r-uniform-left)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@item Target Slot
+@ref{❨103❩, , @t{left}}.
+@end table
+@end deffn
+@deffn {Function} {r-uniform-p} (object)
+@anchor{❨315❩}@c
+@functionsubindex{r-uniform-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@end table
+@end deffn
+@deffn {Reader} {r-uniform-right} (instance)
+@anchor{❨362❩}@c
+@functionsubindex{r-uniform-right}@c
+@deffnx {Writer} {(setf r-uniform-right)} (instance)
+@anchor{❨363❩}@c
+@functionsubindex{(setf r-uniform-right)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@item Target Slot
+@ref{❨104❩, , @t{right}}.
+@end table
+@end deffn
+@deffn {Reader} {r-uniform-width} (instance)
+@anchor{❨289❩}@c
+@functionsubindex{r-uniform-width}@c
+@deffnx {Writer} {(setf r-uniform-width)} (instance)
+@anchor{❨290❩}@c
+@functionsubindex{(setf r-uniform-width)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨10❩, , @t{uniform.lisp}}.
+@item Target Slot
+@ref{❨105❩, , @t{width}}.
+@end table
+@end deffn
+@deffn {Function} {r-univariate-p} (object)
+@anchor{❨342❩}@c
+@functionsubindex{r-univariate-p}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {standard-gamma1-d-c} (alpha)
+@anchor{❨310❩}@c
+@functionsubindex{standard-gamma1-d-c}@c
+Return precalculated constants (values d c)@comma{} useful for drawing
+from a gamma distribution.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨16❩, , @t{gamma.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {truncated-normal-moments%} (n mu sigma left right &optional m0)
+@anchor{❨231❩}@c
+@functionsubindex{truncated-normal-moments%}@c
+N=0 gives the total mass of the truncated normal@comma{} used for normalization@comma{}@*
+N=1 the mean@comma{} and N=2 the variance.  where p(x) is the normal density.  When LEFT or RIGHT are NIL@comma{} they are taken to be - or + infinity@comma{} respectively.  M0 may be provided for efficiency if would be calculated multiple times.  The formulas are from Jawitz (2004).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {truncated-normal-optimal-alpha} (left)
+@anchor{❨243❩}@c
+@functionsubindex{truncated-normal-optimal-alpha}@c
+Calculate optimal exponential parameter for left-truncated normals.  LEFT is the standardized boundary.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@end table
+@end deffn
+
+@node Private generic functions, Private structures, Private ordinary functions, Internals
+@subsection Generic functions
+@deffn {Generic Reader} {a} (object)
+@anchor{❨376❩}@c
+@genericsubindex{a}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Reader Method} {a} ((simple-multiplicative-congruential @ref{❨281❩, , @t{simple-multiplicative-congruential}}))
+@anchor{❨377❩}@c
+@methodsubindex{a}@c
+The multiplier of the sequence x(n+1) = A * x(n) mod M.
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Target Slot
+@ref{❨283❩, , @t{a}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Reader} {chunk-length} (object)
+@anchor{❨274❩}@c
+@genericsubindex{chunk-length}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Reader Method} {chunk-length} ((generator @ref{❨213❩, , @t{generator}}))
+@anchor{❨275❩}@c
+@methodsubindex{chunk-length}@c
+The length in bits of the integer returned by NEXT-CHUNK.
+@table @strong
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@item Target Slot
+@ref{❨217❩, , @t{chunk-length}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {clone} (self)
+@anchor{❨307❩}@c
+@genericsubindex{clone}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {clone} ((self @ref{❨281❩, , @t{simple-multiplicative-congruential}}))
+@anchor{❨308❩}@c
+@methodsubindex{clone}@c
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {copy-state} (rng)
+@anchor{❨321❩}@c
+@genericsubindex{copy-state}@c
+Return a deep copy of RNG. The stream of random numbers drawn from RNG and its clone should be the same (given you draw according to the same distributions).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@item Methods
+@deffn {Method} {copy-state} ((rng @ref{❨213❩, , @t{generator}}))
+@anchor{❨322❩}@c
+@methodsubindex{copy-state}@c
+@table @strong
+@end table
+@end deffn
+@deffn {Method} {copy-state} ((rng @t{random-state}))
+@anchor{❨323❩}@c
+@methodsubindex{copy-state}@c
+@table @strong
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Reader} {default-seed} (object)
+@anchor{❨271❩}@c
+@genericsubindex{default-seed}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Reader Method} {default-seed} ((generator @ref{❨213❩, , @t{generator}}))
+@anchor{❨272❩}@c
+@methodsubindex{default-seed}@c
+The seed used by default@comma{} when the seed is NIL.
+@table @strong
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@item Target Slot
+@ref{❨218❩, , @t{default-seed}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {generate-state} (rng seed)
+@anchor{❨244❩}@c
+@genericsubindex{generate-state}@c
+Return a state for a generator of RNG's type using seed.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@item Methods
+@deffn {Method} {generate-state} ((self @ref{❨281❩, , @t{simple-multiplicative-congruential}}) seed)
+@anchor{❨245❩}@c
+@methodsubindex{generate-state}@c
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {generate-state} ((rng @ref{❨213❩, , @t{generator}}) seed)
+@anchor{❨246❩}@c
+@methodsubindex{generate-state}@c
+@table @strong
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Reader} {m} (object)
+@anchor{❨254❩}@c
+@genericsubindex{m}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Reader Method} {m} ((simple-multiplicative-congruential @ref{❨281❩, , @t{simple-multiplicative-congruential}}))
+@anchor{❨255❩}@c
+@methodsubindex{m}@c
+The modulo of the sequence x(n+1) = A * x(n) mod M.
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Target Slot
+@ref{❨284❩, , @t{m}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {n} (r-binomial0)
+@anchor{❨372❩}@c
+@genericsubindex{n}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {n} ((r-binomial0 @ref{❨48❩, , @t{r-binomial}}))
+@anchor{❨373❩}@c
+@methodsubindex{n}@c
+@table @strong
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {next-chunk} (self)
+@anchor{❨384❩}@c
+@genericsubindex{next-chunk}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {next-chunk} ((self @ref{❨281❩, , @t{simple-multiplicative-congruential}}))
+@anchor{❨385❩}@c
+@methodsubindex{next-chunk}@c
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {next-real} (self)
+@anchor{❨368❩}@c
+@genericsubindex{next-real}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {next-real} ((self @ref{❨281❩, , @t{simple-multiplicative-congruential}}))
+@anchor{❨369❩}@c
+@methodsubindex{next-real}@c
+@table @strong
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {pr} (r-bernoulli0)
+@anchor{❨327❩}@c
+@genericsubindex{pr}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {pr} ((r-geometric0 @ref{❨89❩, , @t{r-geometric}}))
+@anchor{❨328❩}@c
+@methodsubindex{pr}@c
+@table @strong
+@item Source
+@ref{❨22❩, , @t{geometric.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {pr} ((r-binomial0 @ref{❨48❩, , @t{r-binomial}}))
+@anchor{❨329❩}@c
+@methodsubindex{pr}@c
+@table @strong
+@item Source
+@ref{❨21❩, , @t{binomial.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {pr} ((r-bernoulli0 @ref{❨94❩, , @t{r-bernoulli}}))
+@anchor{❨330❩}@c
+@methodsubindex{pr}@c
+@table @strong
+@item Source
+@ref{❨20❩, , @t{bernoulli.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {s^2} (distribution)
+@anchor{❨313❩}@c
+@genericsubindex{s^2}@c
+Return the scale when applicable.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@item Methods
+@deffn {Method} {s^2} ((r-inverse-gamma @ref{❨130❩, , @t{r-inverse-gamma}}))
+@anchor{❨314❩}@c
+@methodsubindex{s^2}@c
+@table @strong
+@item Source
+@ref{❨17❩, , @t{chi-square.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {sd} (r-normal0)
+@anchor{❨311❩}@c
+@genericsubindex{sd}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Method} {sd} ((r-normal0 @ref{❨207❩, , @t{r-normal}}))
+@anchor{❨312❩}@c
+@methodsubindex{sd}@c
+@table @strong
+@item Source
+@ref{❨12❩, , @t{normal.lisp}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Reader} {state} (object)
+@anchor{❨234❩}@c
+@genericsubindex{state}@c
+@deffnx {Generic Writer} {(setf state)} (object)
+@anchor{❨236❩}@c
+@genericsubindex{(setf state)}@c
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Methods
+@deffn {Reader Method} {state} ((generator @ref{❨213❩, , @t{generator}}))
+@anchor{❨235❩}@c
+@methodsubindex{state}@c
+@deffnx {Writer Method} {(setf state)} ((generator @ref{❨213❩, , @t{generator}}))
+@anchor{❨237❩}@c
+@methodsubindex{(setf state)}@c
+All information needed by the generator to create the next chunk of random bits.  This state is modified after each call to NEXT-CHUNK.
+@table @strong
+@item Source
+@ref{❨5❩, , @t{generator.lisp}}.
+@item Target Slot
+@ref{❨214❩, , @t{state}}.
+@end table
+@end deffn
+@end table
+@end deffn
+
+@node Private structures, Private classes, Private generic functions, Internals
+@subsection Structures
+@deftp {Structure} {left-truncated-normal}
+@anchor{❨333❩}@c
+@structuresubindex{left-truncated-normal}@c
+Truncated normal distribution with given mu and sigma (corresponds to the mean and standard deviation in the untruncated case@comma{} respectively)@comma{} on the interval [left@comma{} infinity).
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨14❩, , @t{truncated-normal.lisp}}.
+@item Direct superclasses
+@ref{❨374❩, , @t{r-univariate}}.
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨65❩, , @t{cdf}}.
+@item
+@ref{❨151❩, , @t{draw}}.
+@item
+@ref{❨113❩, , @t{log-pdf}}.
+@item
+@ref{❨172❩, , @t{mean}}.
+@item
+@ref{❨192❩, , @t{quantile}}.
+@item
+@ref{❨81❩, , @t{variance}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {mu}
+@anchor{❨334❩}@c
+@slotsubindex{mu}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨287❩, , @t{left-truncated-normal-mu}}.
+@item Writers
+@ref{❨288❩, , @t{(setf left-truncated-normal-mu)}}.
+@end table
+@end defvr
+@defvr {Slot} {sigma}
+@anchor{❨335❩}@c
+@slotsubindex{sigma}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨381❩, , @t{left-truncated-normal-sigma}}.
+@item Writers
+@ref{❨382❩, , @t{(setf left-truncated-normal-sigma)}}.
+@end table
+@end defvr
+@defvr {Slot} {left}
+@anchor{❨336❩}@c
+@slotsubindex{left}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨261❩, , @t{left-truncated-normal-left}}.
+@item Writers
+@ref{❨262❩, , @t{(setf left-truncated-normal-left)}}.
+@end table
+@end defvr
+@defvr {Slot} {left-standardized}
+@anchor{❨337❩}@c
+@slotsubindex{left-standardized}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨248❩, , @t{left-truncated-normal-left-standardized}}.
+@item Writers
+@ref{❨249❩, , @t{(setf left-truncated-normal-left-standardized)}}.
+@end table
+@end defvr
+@defvr {Slot} {m0}
+@anchor{❨338❩}@c
+@slotsubindex{m0}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨345❩, , @t{left-truncated-normal-m0}}.
+@item Writers
+@ref{❨346❩, , @t{(setf left-truncated-normal-m0)}}.
+@end table
+@end defvr
+@defvr {Slot} {alpha}
+@anchor{❨339❩}@c
+@slotsubindex{alpha}@c
+@table @strong
+@item Type
+@t{distributions.internals:internal-float}
+@item Readers
+@ref{❨386❩, , @t{left-truncated-normal-alpha}}.
+@item Writers
+@ref{❨387❩, , @t{(setf left-truncated-normal-alpha)}}.
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {r-univariate}
+@anchor{❨374❩}@c
+@structuresubindex{r-univariate}@c
+Univariate distribution.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨8❩, , @t{generics.lisp}}.
+@item Direct superclasses
+@t{structure-object}.
+@item Direct subclasses
+@itemize @bullet
+@item
+@ref{❨333❩, , @t{left-truncated-normal}}.
+@item
+@ref{❨94❩, , @t{r-bernoulli}}.
+@item
+@ref{❨186❩, , @t{r-beta}}.
+@item
+@ref{❨48❩, , @t{r-binomial}}.
+@item
+@ref{❨36❩, , @t{r-discrete}}.
+@item
+@ref{❨140❩, , @t{r-exponential}}.
+@item
+@ref{❨58❩, , @t{r-gamma}}.
+@item
+@ref{❨89❩, , @t{r-geometric}}.
+@item
+@ref{❨130❩, , @t{r-inverse-gamma}}.
+@item
+@ref{❨54❩, , @t{r-log-normal}}.
+@item
+@ref{❨207❩, , @t{r-normal}}.
+@item
+@ref{❨199❩, , @t{r-rayleigh}}.
+@item
+@ref{❨97❩, , @t{r-t}}.
+@item
+@ref{❨102❩, , @t{r-uniform}}.
+@end itemize
+@item Direct methods
+@ref{❨220❩, , @t{standard-deviation}}.
+@end table
+@end deftp
+
+@node Private classes, , Private structures, Internals
+@subsection Classes
+@deftp {Class} {simple-multiplicative-congruential}
+@anchor{❨281❩}@c
+@classsubindex{simple-multiplicative-congruential}@c
+A multiplicative congruential generator generates the sequence x(n+1) =@*
+  A * x(n) mod M and uses the seed as x(1). A simple multiplicative congruential generator
+  is a multiplicative congruential generator with M a power of 2. This allows to implement
+  the modulo operation as a bitwise and operation of M-1@comma{} which is also the maximum value
+  of a random chunk.
+@table @strong
+@item Package
+@ref{❨25❩, , @t{distributions}}.
+@item Source
+@ref{❨6❩, , @t{simple-multiplicative-congruential-generators.lisp}}.
+@item Direct superclasses
+@ref{❨213❩, , @t{generator}}.
+@item Direct subclasses
+@itemize @bullet
+@item
+@ref{❨126❩, , @t{borosh13}}.
+@item
+@ref{❨201❩, , @t{randu}}.
+@item
+@ref{❨136❩, , @t{transputer}}.
+@item
+@ref{❨221❩, , @t{waterman14}}.
+@end itemize
+@item Direct methods
+@itemize @bullet
+@item
+@ref{❨377❩, , @t{a}}.
+@item
+@ref{❨308❩, , @t{clone}}.
+@item
+@ref{❨245❩, , @t{generate-state}}.
+@item
+@ref{❨426❩, , @t{initialize-instance}}.
+@item
+@ref{❨255❩, , @t{m}}.
+@item
+@ref{❨385❩, , @t{next-chunk}}.
+@item
+@ref{❨369❩, , @t{next-real}}.
+@end itemize
+@item Direct slots
+@defvr {Slot} {default-seed}
+@anchor{❨282❩}@c
+@slotsubindex{default-seed}@c
+@table @strong
+@item Initform
+@t{1}
+@end table
+@end defvr
+@defvr {Slot} {a}
+@anchor{❨283❩}@c
+@slotsubindex{a}@c
+The multiplier of the sequence x(n+1) = A * x(n) mod M.
+@table @strong
+@item Readers
+@ref{❨377❩, , @t{a}}.
+@item Writers
+@i{This slot is read-only.}
+@end table
+@end defvr
+@defvr {Slot} {m}
+@anchor{❨284❩}@c
+@slotsubindex{m}@c
+The modulo of the sequence x(n+1) = A * x(n) mod M.
+@table @strong
+@item Readers
+@ref{❨255❩, , @t{m}}.
+@item Writers
+@i{This slot is read-only.}
+@end table
+@end defvr
+@end table
+@end deftp
+
+
+
+@c ====================================================================
+@c Indexes
+@c ====================================================================
+@node Indexes, , Definitions, Top
+@appendix Indexes
+@menu
+* Concept index::
+* Function index::
+* Variable index::
+* Data type index::
+@end menu
+
+
+@c -------------
+@c Concept index
+@c -------------
+@node Concept index, Function index, Indexes, Indexes
+@appendixsec Concepts
+@printindex cp
+
+@page
+
+
+@c --------------
+@c Function index
+@c --------------
+@node Function index, Variable index, Concept index, Indexes
+@appendixsec Functions
+@printindex fn
+
+@page
+
+
+@c --------------
+@c Variable index
+@c --------------
+@node Variable index, Data type index, Function index, Indexes
+@appendixsec Variables
+@printindex vr
+
+@page
+
+
+@c ---------------
+@c Data type index
+@c ---------------
+@node Data type index, , Variable index, Indexes
+@appendixsec Data types
+@printindex tp
+
+@bye
+
+@c distributions.texi ends here

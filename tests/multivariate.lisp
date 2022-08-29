@@ -1,6 +1,6 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
-
-(in-package #:cl-random-tests)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS-TESTS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(in-package #:distributions-tests)
 
 (deftestsuite multivariate-tests (cl-random-tests)
   ())

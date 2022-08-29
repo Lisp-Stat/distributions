@@ -1,24 +1,11 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; -*-
-(cl:defpackage #:cl-random.internals
-  (:use #:cl
-        #:alexandria
-        #:let-plus)
-  (:export
-   #:internal-float
-   #:float-vector
-   #:as-float
-   #:with-floats
-   #:as-float-vector
-   #:as-float-probabilities
-   #:try
-   #:maybe-ignore-constant))
-
-(cl:in-package #:cl-random.internals)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS.INTERNALS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(cl:in-package #:distributions.internals)
 
 ;;; internal representation of floats
 
 (deftype internal-float (&optional lower-limit upper-limit)
-  "Type used for internal representation of floats in the CL-RANDOM library."
+  "Type used for internal representation of floats in the DISTRIBUTIONS library."
   `(double-float ,(if (eq lower-limit '*)
                       lower-limit
                       (float lower-limit 1d0))
@@ -31,11 +18,11 @@
 
 (declaim (inline as-float))
 (defun as-float (x)
-  "Return the argument coerced to the CL-RANDOM library's internal float type."
+  "Return the argument coerced to the DISTRIBUTIONS library's internal float type."
   (coerce x 'internal-float))
 
 (defmacro with-floats ((&rest variables) &body body)
-  "Rebind each variable, coerced to a the internal float type used by CL-RANDOM."
+  "Rebind each variable, coerced to the internal float type used by DISTRIBUTIONS."
   `(let ,(mapcar (lambda (variable)
                    `(,variable (as-float ,variable)))
           variables)
@@ -50,7 +37,7 @@
 
 (defun as-float-probabilities (vector)
   "Normalize vector as probabilities, assert that all are positive, return them as a VECTOR-DOUBLE-FLOAT.  Vector is always copied."
-  (let ((sum (clnu:sum vector)))
+  (let ((sum (nu:sum vector)))
     (map 'float-vector
          (lambda (x)
            (assert (<= 0 x) (x) "Element is not positive.")

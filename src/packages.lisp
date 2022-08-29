@@ -1,34 +1,37 @@
-(defpackage #:cl-random
-  (:nicknames #:rv)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: CL-USER -*-
+;;; Copyright (c) 2019-2022 Symbolics Pte. Ltd. All rights reserved.
+
+(uiop:define-package :distributions.internals
+  (:use #:cl
+        #:alexandria
+        #:let-plus)
+  (:export
+   #:internal-float
+   #:float-vector
+   #:as-float
+   #:with-floats
+   #:as-float-vector
+   #:as-float-probabilities
+   #:try
+   #:maybe-ignore-constant))
+
+(uiop:define-package :distributions
   (:use #:common-lisp
         #:alexandria
         #:anaphora
-        #:cl-num-utils.elementwise
-        #:cl-num-utils.matrix
-        #:cl-num-utils.num=
-        #:cl-random.internals
-        #:cl-slice
-        #:let-plus
-        #:lla)
-  (:shadow #:mean #:variance #:standard-deviation) ; also in ALEXANDRIA
-  ;;  ;; continuous-time
-  ;;  #:r-uniformized-markov-jump
-  ;;  ;; statistics
-  ;;  #:matrix-mean
-  ;;  #:demean-matrix
-  ;;  #:matrix-sse
-  ;;  #:matrix-variance
-  ;;  #:matrix-mean-and-variance
-  ;;  #:add-regression-dummies
-  ;;  #:linear-regression-dummies
-  ;;  #:linear-regression
-  ;;  #:posterior
-  ;;  #:r^2
-  ;;  #:s^2
-  ;;  #:as-regression-covariates
-  ;;  #:transform-y-x
-  ;;  #:check-probability
-  ;;  #:r-dirichlet)
+        #:num-utils.elementwise
+        #:num-utils.matrix
+        #:num-utils.num=
+        #:distributions.internals
+	#:special-functions
+;        #:select
+        #:let-plus)
+;;        #:lla)
+  (:import-from #:float-features
+		#:double-float-nan
+		#:double-float-positive-infinity)
+  (:shadow #:mean #:variance #:standard-deviation #:factorial #:quantile) ; also in ALEXANDRIA
+  ;; continuous-time
   (:export                              ; generators
    #:make-generator
    #:next
@@ -43,7 +46,7 @@
    #:mean
    #:variance
    #:cdf
-   #:quantile
+   #:quantile				; also defined in num-utils
    #:log-pdf
    #:pdf)
   (:export                              ; discrete
@@ -72,9 +75,13 @@
    #:r-t
    #:scale
    #:nu
+
    #:r-gamma
    #:alpha
    #:beta
+   #:cdf-gamma
+   #:pdf-gamma
+
    #:r-inverse-gamma
    #:r-chi-square
    #:r-inverse-chi-square

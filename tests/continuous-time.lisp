@@ -1,10 +1,15 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS-TESTS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(in-package #:distributions-tests)
 
-(in-package #:cl-random-tests)
+#+genera (setf *print-array* t)
 
-(defsuite continuous-time-tests (tests))
+(def-suite continuous-time-tests
+  :description "Test functions for continuous time functions."
+  :in all-tests)
+(in-suite continuous-time-tests)
 
-(deftest uniformized-markov-jump (continuous-time-tests)
+(test uniformized-markov-jump
   (let* ((n 100000)
          (keys #(:a :b :c))
          (rates #(1 2 3))
@@ -16,16 +21,16 @@
     (dotimes (i n)
       (setf (values (aref durations i) (aref jumps i)) (draw rv)))
     (let ((*num=-tolerance* 0.01d0))
-      (assert-equality #'num= 0.1 (clnu:mean durations)))
+      (is (num= 0.1 (clnu:mean durations)))
     (let ((*num=-tolerance* 0.1d0))
-      (assert-equality #'num= (* 0.1 n) (count :a jumps))
-      (assert-equality #'num= (* 0.2 n) (count :b jumps))
-      (assert-equality #'num= (* 0.3 n) (count :c jumps))
-      (assert-equality #'num= (* 0.4 n) (count :no-change jumps)))
-    (assert-true (every #'alexandria:non-negative-real-p durations))
-    (assert-true (every (lambda (j) (find j possible-keys)) jumps))))
+      (is (num= (* 0.1 n) (count :a jumps)))
+      (is (num= (* 0.2 n) (count :b jumps)))
+      (is (num= (* 0.3 n) (count :c jumps)))
+      (is (num= (* 0.4 n) (count :no-change jumps))))
+    (is (every #'alexandria:non-negative-real-p durations))
+    (is (every (lambda (j) (find j possible-keys)) jumps)))))
 
-(deftest uniformized-markov-jump2 (continuous-time-tests)
+(test uniformized-markov-jump2
   (let+ ((n 100000)
          (keys #(:a :b :c))
          (rates #(0.1 0.9 1.5))
@@ -35,16 +40,16 @@
          ((&flet test-count (key rate)
             (let ((count (count key jumps))
                   (expected (* (/ rate total-rates) n)))
-              (format *debug-io*
-                      "key: ~A  expected count: ~A  actual count: ~A~%"
-                      key (round expected) count)
-              (assert-equality #'num= expected count))))
+               (format *debug-io*
+                       "key: ~A  expected count: ~A  actual count: ~A~%"
+                       key (round expected) count)
+              (is (num= expected count)  "Expected ~A but got ~A for key ~A" (round expected) count key))))
          (rv (r-uniformized-markov-jump rates :keys keys)))
     (dotimes (i n)
       (setf (values (aref durations i) (aref jumps i)) (draw rv)))
     (let ((*num=-tolerance* 0.02d0))
-      (assert-equality #'num= (/ total-rates) (clnu:mean durations)))
+      (is (num= (/ total-rates) (clnu:mean durations)))
     (let ((*num=-tolerance* 0.02d0))
       (map nil #'test-count keys rates))
-    (assert-true (every #'alexandria:non-negative-real-p durations))
-    (assert-true (every (lambda (j) (find j keys)) jumps))))
+    (is (every #'alexandria:non-negative-real-p durations))
+    (is (every (lambda (j) (find j keys)) jumps)))))

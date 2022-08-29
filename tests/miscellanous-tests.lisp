@@ -1,6 +1,9 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS-TESTS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(in-package #:distributions-tests)
 
-(in-package #:cl-random-tests)
+;;;; Formerly discrete.lisp, these appear to be discrete tests for
+;;;; various disdributions.
 
 (defun count-draws-if (count generator &optional (predicate #'identity))
   "Call GENERATOR COUNT times, return the number of draws that satisfy PREDICATE."
@@ -21,30 +24,35 @@ binomial distribution, with the rejection probability 2*TAIL, symmetrically."
     (values (< (quantile rv tail) result (quantile rv (- 1 tail)))
             (float (/ result count) 1d0))))
 
-(deftest bernoulli-tests (tests)
-  (assert-false (draw-bernoulli 0))
-  (assert-true (draw-bernoulli 1))
-  (assert-true (same-proportion? 0.3 10000
+(def-suite miscellanous-tests
+  :description "Miscellanous discrete tests of various distribution."
+  :in all-tests)
+(in-suite miscellanous-tests)
+
+(test bernoulli-proportions
+  (is (not (draw-bernoulli 0)))
+  (is (draw-bernoulli 1))
+  (is (same-proportion? 0.3 10000
 				 (lambda () (draw-bernoulli 3/10))))
-  (assert-true (same-proportion? 1/31 100000
+  (is (same-proportion? 1/31 100000
 				 (lambda () (draw-bernoulli 1/31))))
-  (assert-true (same-proportion? 0.99d0 10000
+  (is (same-proportion? 0.99d0 10000
 				 (lambda () (draw-bernoulli 0.99d0))))
-  (assert-true (same-proportion? 0.1 10000
+  (is (same-proportion? 0.1 10000
 				 (lambda () (draw-bernoulli 0.10)))))
 
 ;; TODO: Test binomial, geometric, and poisson. What's the best test?
 
-(deftest distinct-random-integers (tests)
-  (flet ((test (number count limit &key (n-draws 10000))
-           "Test (DISTRINCT-RANDOM-INTEGERS COUNT LIMIT) by counting the times
-NUMBER shows up in draws."
-           (assert (< -1 number limit))
+(test distinct-random-integers
+  (flet ((count-test (number count limit &key (n-draws 10000))
+           "Test (DISTINCT-RANDOM-INTEGERS COUNT LIMIT) by counting the times NUMBER shows up in draws."
+           (is (< -1 number limit))
            (same-proportion? (/ count limit)
                              n-draws
                              (lambda () (distinct-random-integers count limit))
                              :predicate (lambda (result) (find number result)))))
-    (assert-true (test 42 5 100))
-    (assert-true (test 93 6 100))
-    (assert-true (test 999 6 1000))
-    (assert-true (test 9 10 10))))
+    (is (count-test 42 5 100))
+    (is (count-test 93 6 100))
+    (is (count-test 999 6 1000))
+    (is (count-test 9 10 10))))
+

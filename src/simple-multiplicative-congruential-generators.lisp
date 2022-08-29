@@ -1,4 +1,6 @@
-(in-package :cl-random)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(in-package #:distributions)
 
 ;;;; Simple Multiplicative Congruential Generator.
 
@@ -14,8 +16,7 @@
   the modulo operation as a bitwise and operation of M-1, which is also the maximum value
   of a random chunk."))
 
-(defmethod initialize-instance :after ((self simple-multiplicative-congruential) &key 
-				       &allow-other-keys)
+(defmethod initialize-instance :after ((self simple-multiplicative-congruential) &key &allow-other-keys)
   (with-slots (chunk-length min max m) self
     ;; M = 2^CHUNK-LENGTH, and MAX = M-1
     (let ((modulo (expt 2 chunk-length)))
@@ -24,7 +25,7 @@
 	    max (1- modulo)))))
 
 (defmethod clone ((self simple-multiplicative-congruential))
-  (make-instance (typeof self) :state (state self)))
+  (make-instance (type-of self) :state (state self)))
 
 (defmethod generate-state ((self simple-multiplicative-congruential) seed)
   seed)
@@ -41,12 +42,12 @@
     (float (/ (next-chunk self) m))))
 
 
-;;;; Specific implementations
+;;; Specific implementations
 
 (defclass transputer (simple-multiplicative-congruential)
   ((a :initform 1664525)
    (chunk-length :initform 32))
-  (:documentation "INMOS Transputer Development System generator. "))
+  (:documentation "INMOS Transputer Development System generator."))
 
 (defclass randu (simple-multiplicative-congruential)
   ((a :initform 65539)

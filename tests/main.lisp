@@ -1,49 +1,45 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS-TESTS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(in-package #:distributions-tests)
 
-(defpackage #:cl-random-tests
-  (:use #:cl
-        #:clunit
-        #:cl-num-utils.elementwise
-        #:cl-num-utils.matrix-shorthand
-        #:cl-num-utils.num=
-        #:cl-random
-        #:let-plus
-        #:lla)
-  (:export #:run))
+(def-suite all-tests
+    :description "The master suite of all DISTRIBUTIONS tests.")
 
-(in-package #:cl-random-tests)
+(in-suite all-tests)
 
-(defsuite tests ())
+#+genera (setf *print-array* t)
 
-(defun run (&optional interactive?)
-  "Run all the tests for CL-RANDOM."
-  (run-suite 'tests :use-debugger interactive?))
+(defun test-distributions ()
+  (run! 'all-tests))
 
+(defun assert-q-cdf-consistency (rv q)
+  "Calculate X from Q, then Q from X, and compare."
+  (is (num= (cdf rv (distributions:quantile rv q)) q)))
 
 (defun z-score (n mean variance sample-mean)
   "Calculate abs(z) based on theoretical mean and variance and sample mean."
   (abs (* (- sample-mean mean)
           (sqrt (/ n variance)))))
 
-(defun same-univariate-moments (rv &key (n 100000) (z-band 4d0)
-                                        (var-band 0.1))
+(defun same-univariate-moments (rv &key (n 100000) (z-band 4d0) (var-band 0.1))
   "Sample a univariate random variable N times and compare with expected moments, using
 
   1. the z-score of the mean (should be below Z-BAND in absolute value),
 
   2. the variance with NUM= using VAR-BAND as a tolerance."
   (let+ (((&accessors-r/o mean variance) rv)
-         (sample-moments (clnu.stats:central-sample-moments nil)))
+         (sample-moments (nu.stats:central-sample-moments nil)))
     (loop repeat n
-          do (clnu.stats:add sample-moments (draw rv)))
-    (and (< (z-score n mean variance (clnu.stats:mean sample-moments)) z-band)
-         (num= variance (clnu.stats:variance sample-moments) var-band))))
+          do (nu.stats:add sample-moments (draw rv)))
+    (and (< (z-score n mean variance (nu.stats:mean sample-moments)) z-band)
+         (num= variance (nu.stats:variance sample-moments) var-band))))
 
+;; This was commented out in Papps version.
 ;; (defun same-sample-mean-variance (rv &key )
 ;;   "Generate a sample of length N from RV, then compare moments
 ;; COMPARE-SAMPLE-MEAN-VARIANCE.  For univariate and multivariate distributions."
 ;;     (if (vectorp mean)
-;;         (let ((moments (clnu:central-sample-moments
+;;         (let ((moments (nu:central-sample-moments
 ;;                         (aops:generate (funcall ))) )))
 ;;         )
 
@@ -72,6 +68,7 @@
   (:method ((a array) b)
     (relative-difference a (aops:as-array b))))
 
+#| TODO: Remove LLA dependency
 (defun random-y-x (n k
                    &optional
                    (x-rv (r-normal 0 9))
@@ -81,3 +78,4 @@
   (let* ((x (aops:generate* 'lla-double (generator x-rv) (list n k)))
          (y (e+ (mm x beta) (aops:generate* 'lla-double n (generator e-rv)))))
     (values y x)))
+|#

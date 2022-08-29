@@ -1,52 +1,79 @@
-(in-package #:cl-random)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS -*-
+;;; Copyright (c) 2019-2022 Symbolics Pte. Ltd. All rights reserved.
+(in-package #:distributions)
+
+;;; The random number generation system was added after Papp stopped using this library.
+;;; See: https://github.com/tpapp/cl-random/pull/9
+
+;;; That pull request (#9) replaces the previous file
+;;; random-number-generator.lisp, but it seems it may have been a work
+;;; in progress with a few warnings about undefined functions:
+
+;;; COPY-STATE in generator.lisp
+;;; RNG in geometric.lisp, binomial.lisp and bernoulli.lisp
+
+;;; Those are all functions added along with the new generator.  It's
+;;; not clear to me why SBCL would be deleting the RNG code.  All the
+;;; tests nevertheless pass, but may not if using a custom RNG (random
+;;; number generator).
+
+;;; I fixed copy-state by using the 'clone' function from
+;;; random-number-generator.lisp
+
+;;; TODO Refactor and finalise the generator code
+;;; TODO: Consider whether this should be based on the series package instead
+;;; Look at https://github.com/lvaruzza/cl-randist/blob/master/jmt.lisp
+;;; For an SBCL optimised version of MT19937
 
 
-;;;; Random number generator (RNG) base class and functions.
+
+
+;;; Random number generator (RNG) base class and functions.
 
 ;;; Parts of this code are copied and adapted from MT19937 (http://www.cliki.net/mt19937)
 ;;; (2014/08/07), which was itself adapted from CMUCL rand-mt19937.lisp -r1.11
 ;;; (2003/03/06).
 
 ;;; Usage:
-
 ;;; Create a new generator with MAKE-GENERATOR, optionally provide TYPE or SEED.  Call
 ;;; NEXT to get a new integer or real number.
 
 ;;; Adding a new generator:
-
 ;;; Each generator should inherit from GENERATOR and implement the generic functions
 ;;; NEXT-CHUNK, GENERATE-STATE, and COPY-STATE.
 
-
-
 ;;;; GENERATOR, base class for all generators.
 
-(defclass generator () 
+(defclass generator ()
   ((state :initarg :state
 	  :accessor state
-	  :documentation "All information needed by the generator to create the next chunk
-	  of random bits. This state is modified after each call to NEXT-CHUNK.")
+	  :documentation "All information needed by the generator to create the next chunk of random bits.  This state is modified after each call to NEXT-CHUNK.")
    (min :initarg :min
 	:documentation "The minimum value return by NEXT-CHUNK.")
    (max :initarg :max
 	:documentation "The maximum value return by NEXT-CHUNK.")
    (chunk-length :reader chunk-length
-		 :documentation "The length in bits of the integer returned by
-		 NEXT-CHUNK.")
+		 :documentation "The length in bits of the integer returned by NEXT-CHUNK.")
    (default-seed :reader default-seed
      :initform 0
      :documentation "The seed used by default, when the seed is NIL."))
   (:documentation "Base class for random number generators."))
 
 
+;;; This came from a now deleted file in Papp's repo random-number-generator.lisp
+(defgeneric copy-state (rng)
+  (:documentation "Return a deep copy of RNG. The stream of random numbers drawn from RNG and its clone should be the same (given you draw according to the same distributions).")
+  (:method ((rng generator))
+    (error "not implemented"))
+  (:method ((rng random-state))
+    (make-random-state rng)))
 
 ;;;; Creating a new GENERATOR by cloning or seeding.
 
 (defparameter *default-generator-type* 'builtin-generator)
 
 (defun make-generator (&key (seed T) (type *default-generator-type*))
-  "Make a random number generator object. SEED can be any of NIL, T, an other generator,
-an integer, or any type of seed that a generator of type TYPE supports:
+  "Make a random number generator object. SEED can be any of NIL, T, an other generator, an integer, or any type of seed that a generator of type TYPE supports:
 - NIL: the generator's STD-SEED is used;
 - T: a random seed is used;
 - a generator: a clone is returned;

@@ -1,4 +1,6 @@
-(in-package :cl-random)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DISTRIBUTIONS -*-
+;;; Copyright (c) 2019-2020 Symbolics Pte. Ltd. All rights reserved.
+(in-package :distributions)
 
 (defmacro define-rv (name constructor-lambda-list options slots
                      constructor-form &rest methods)
@@ -34,7 +36,7 @@ METHODS are (function-name lambda-list &body body), with (INSTANCE NAME) prepend
                      (push (list reader nil slot-name) methods)))))
       ;; define form
       `(progn
-         (defstruct (,name ,@(clnu:splice-when include `(:include ,include)))
+         (defstruct (,name ,@(nu:splice-when include `(:include ,include)))
            ,documentation
            ,@(loop for slot in slots collect
                       (let+ (((slot-name &key type read-only &allow-other-keys) slot))
@@ -101,8 +103,7 @@ METHODS are (function-name lambda-list &body body), with (INSTANCE NAME) prepend
   (:documentation "Log of probability distribution function of RANDOM-VARIABLE at X.  NIL corresponds to log(-infinity).  When IGNORE-CONSTANT?, the result may be shifted by an arbitrary real constant that does not change between calls of the same RANDOM-VARIABLE.  This may save computation, and is useful for MCMC methods, etc."))
 
 (defun pdf (rv x &optional ignore-constant?)
-  "Probability distribution function of RANDOM-VARIABLE at X.  See LOG-PDF for
-the semantics of IGNORE-CONSTANT?."
+  "Probability distribution function of RANDOM-VARIABLE at X.  See LOG-PDF for the semantics of IGNORE-CONSTANT?."
   (aif (log-pdf rv x ignore-constant?)
        (exp it)
        (as-float 0)))
