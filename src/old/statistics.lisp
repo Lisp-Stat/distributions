@@ -1,6 +1,5 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; -*-
-
-(in-package #:cl-random)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: RANDOM-VARIABLES -*-
+(in-package :random-variables)
 
 (defgeneric matrix-mean (matrix)
   (:documentation "Mean of a matrix, columnwise.")

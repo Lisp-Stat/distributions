@@ -20,14 +20,7 @@
   <h3 align="center">Distributions</h3>
 
   <p align="center">
-  The Distributions package provides a collection of probabilistic distributions and related functions including:
-
-- Sampling from distributions
-- Moments (e.g mean, variance, skewness, and kurtosis), entropy, and other properties
-- Probability density/mass functions (pdf) and their logarithm (logpdf)
-- Moment-generating functions and characteristic functions
-- Maximum likelihood estimation
-- Distribution composition and derived distributions
+  The Distributions package provides a collection of probabilistic distributions and related functions
 	<br />
     <a href="https://lisp-stat.dev/docs/manuals/distributions/"><strong>Explore the docs »</strong></a>
     <br />

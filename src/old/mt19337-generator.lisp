@@ -1,4 +1,5 @@
-(in-package :cl-random)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: RANDOM-VARIABLES -*-
+(in-package #:random-variables)
 
 ;;; This code was copied and adapted from MT19937 (http://www.cliki.net/mt19937)
 ;;; (2014/08/07), which was itself adapted from CMUCL rand-mt19937.lisp -r1.11

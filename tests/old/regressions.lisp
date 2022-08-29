@@ -1,6 +1,5 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
-
-(in-package #:cl-random-tests)
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: RV-TESTS -*-
+(in-package #:rv-tests)
 
 (deftestsuite regressions-tests (cl-random-tests)
   ()

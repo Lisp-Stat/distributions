@@ -1,6 +1,5 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
-
-(in-package #:cl-random)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: RANDOM-VARIABLES -*-
+(in-package :random-variables)
 
 ;;; dummy observations for regressions
 

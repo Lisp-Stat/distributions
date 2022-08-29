@@ -1,6 +1,14 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: RV-TESTS -*-
+(in-package #:rv-tests)
 
-(in-package #:cl-random-tests)
+;;;; Steve Nunez: This appears to be a generic random number generator
+;;;; test suite. gsll-rng is the RNG from GNU Scientific Lisp
+;;;; Library. I was unable to locate anything for cl-rng. Perhaps this
+;;;; was something Papp was working on?
+
+;;;; In any case, having such a test suite is useful for testing RNGs,
+;;;; so we leave it here, although do not call it as part of the
+;;;; RANDOM-VARIABLES test harness.
 
 (defun valid-rng (rng &key (n 100000) (limit 100) (z-band 4d0) (var-band 0.1))
   "Get N random numbers in [0,LIMIT) from RNG. Verify their type, range, and moments, using
