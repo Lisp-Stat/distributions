@@ -153,7 +153,7 @@ Returns: x^(a-1)*exp(-x/b)/gamma(a)/b^a, x>0"
             (let+ ((1+alpha (1+ alpha))
                    (1/alpha (/ alpha))
                    ((&values d c) (standard-gamma1-d-c 1+alpha)))
-              ;; use well known-transformation, see p 371 of Marsaglia and Tsang (2000)
+              ;; use well known-transformation, see p 371 of Marsaglia & Tsang (2000)
               (/ (* (expt (next 1d0 rng) 1/alpha)
                     (draw-standard-gamma1 1+alpha d c :rng rng))
                  beta))
@@ -189,8 +189,7 @@ Returns: x^(a-1)*exp(-x/b)/gamma(a)/b^a, x>0"
             (let+ ((1+alpha (1+ alpha))
                    (1/alpha (/ alpha))
                    ((&values d c) (standard-gamma1-d-c 1+alpha)))
-              ;; use well known-transformation, see p 371 of Marsaglia and
-              ;; Tsang (2000)
+              ;; use well known-transformation, see p 371 of Marsaglia & Tsang (2000)
               (/ beta
                  (* (expt (next 1d0 rng) 1/alpha)
                     (draw-standard-gamma1 1+alpha d c :rng rng))))
